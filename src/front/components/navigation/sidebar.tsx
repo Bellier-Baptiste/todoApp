@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import Tab from "./tab";
+import { Link } from "react-router-dom";
 
 
 type Props = {
@@ -11,9 +12,15 @@ const Sidebar: FunctionComponent<Props> = (props: Props) => {
         <div className="sidebar"> 
             <h1>{props.title} </h1>
             <span className="sidebar-body">
-                <Tab label="Tab1"></Tab>
-                <Tab label="Tab2"></Tab>
-                <Tab label="Tab3"></Tab>
+                <Link to="/list" className="link-style">
+                    <Tab label="List" />
+                </Link>
+                <Link to="/board" className="link-style">
+                    <Tab label="Board" />
+                </Link>
+                <Link to="/calendar" className="link-style">
+                    <Tab label="Calendar" />
+                </Link>
             </span>
         </div>
     );

@@ -43,14 +43,12 @@
 /* Navbar CSS */
 
 .navbar {
-  height: 150px;
+  height: 100px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 200px;
   background-color: #000000;
-  color: #ffffff;
-  font-size: bold;
 }
 
 /* Sidebar CSS */
@@ -72,4 +70,11 @@
 }
 .tab:hover {
   background-color: rgba(164, 210, 247, 0.4);
+}
+
+.link-style {
+  color: #ffffff;
+}
+.link-style:hover {
+  color: #ffffff;
 }

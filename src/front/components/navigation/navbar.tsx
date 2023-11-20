@@ -8,7 +8,7 @@ type Props = {
 const Navbar: FunctionComponent<Props> = (props: Props) => {
     return (
         <div className="navbar">
-            {props.title}
+            <h1>{props.title}</h1>
         </div>
     );
 };
