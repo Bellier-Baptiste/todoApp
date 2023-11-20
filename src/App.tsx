@@ -1,48 +1,17 @@
-import { useState } from 'react';
+import { Fragment } from 'react'
 import './App.css'
-import Button from './components/button'
+import Navbar from './components/navigation/navbar'
+import Sidebar from './components/navigation/sidebar'
 
 function App() {
-  const [count, setCount] = useState<number>(0);
-
-  function increaseCount() {
-    setCount(count + 1);
-  }
-
-  function decreaseCount() {
-    setCount(count - 1);
-  }
-
-  function resetCount() {
-    setCount(0);
-  }
-
-  const [age, setAge] = useState<number>(0);
-
-  const getNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = Number(e.currentTarget.value); // Convertit la chaîne en nombre
-    
-    if (!isNaN(inputValue)) {
-      setAge(inputValue);
-    }
-  }
-
-  function checkMajority() {
-    if (age < 18) console.log("Vous êtes mineur");
-    else console.log("Vous êtes majeur");
-  }
   
   return (
-    <>
-      <div>
-        <p> Compteur : {count} </p>
-        <Button label = "+" onClick={increaseCount}></Button>
-        <Button label = "-" onClick={decreaseCount}></Button>
-        <Button label = "Reset" onClick={resetCount}></Button><br/>
-        <input type="number" placeholder="Age..." onChange={ getNumber}></input>
-        <Button label="Valider" onClick={checkMajority}></Button>
+    <Fragment>
+      <Navbar title="Navbar"/>
+      <div className='body'>
+        <Sidebar title="Sidebar"/>
       </div>
-    </>
+    </Fragment>
   )
 }
 
