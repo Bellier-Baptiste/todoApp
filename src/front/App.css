@@ -40,3 +40,41 @@
 .read-the-docs {
   color: #888;
 }
+/* Navbar CSS */
+
+.navbar {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 200px;
+  background-color: #000000;
+}
+
+/* Sidebar CSS */
+
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(55, 55, 55, 0.8);
+}
+
+.tab {
+  border-radius: 20px;
+  background-color: rgba(164, 210, 247, 0.27);
+  margin: 20px;
+  padding: 5px 5px;
+}
+.tab:hover {
+  background-color: rgba(164, 210, 247, 0.4);
+}
+
+.link-style {
+  color: #ffffff;
+}
+.link-style:hover {
+  color: #ffffff;
+}
