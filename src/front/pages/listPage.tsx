@@ -1,10 +1,23 @@
+import { tasks } from "../bdd/database";
+import Navbar from "../components/navigation/navbar";
+import Sidebar from "../components/navigation/sidebar";
+
 const ListPage = () => {
-  return (
-    <div>
-      <h1>List Page</h1>
-      <p>This is the List Page.</p>
-    </div>
-  );
+    const userTasks = tasks.filter(task => task.assigned_to === `User${1}`);
+    console.log("User tasks : "+ userTasks);
+
+    return (
+        <div>
+            <Navbar title='Navbar'/>
+            <Sidebar title='Sidebar'/>
+            <h1>List Page</h1>
+            <ul>
+                {userTasks.map(task => (
+                    <li key={task.id}>{task.title}</li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 export default ListPage;
