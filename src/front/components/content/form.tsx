@@ -26,10 +26,11 @@ const Form = () => {
         const isAssignedToValid = assignedToRef.current?.checkValidity();
         const isDueDateValid = dueDateRef.current?.checkValidity();
         const isDescriptionValid = descriptionRef.current?.checkValidity();
-
+        console.log('checkval')
         // Mettre à jour l'état de la validité du formulaire
         setFormIsValid(!!(isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid));
-        
+        console.log('setformisvalid', isTitleValid)
+
         // Si tous les champs sont valides, ajoutez la tâche
         if (isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid) {
             const newTask = {
@@ -42,8 +43,11 @@ const Form = () => {
                 assigned_to: assignedTo,
                 category: 'Category1',
             };
+            console.log('tache créer', newTask);
 
             setTasks((prevTasks) => [...prevTasks, newTask]);
+            console.log('taches maj')
+
         }
     };
 
@@ -92,7 +96,7 @@ const Form = () => {
             <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)} required />
         </label>
         <br />
-        <Link to={formIsValid ? "/board" : "#"}>
+        <Link to={formIsValid ? "#" : "#"}> 
             <button type="submit">Add</button>
         </Link>
         </form>
