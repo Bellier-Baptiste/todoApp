@@ -78,3 +78,45 @@
 .link-style:hover {
   color: #ffffff;
 }
+
+/* Login Page */
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.login-form label {
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.login-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.signup-link {
+  margin-top: 20px;
+}

@@ -34,6 +34,7 @@ interface User {
   export const users: User[] = [
     { id: 1, name: 'User1', password: 'password1' },
     { id: 2, name: 'User2', password: 'password2' },
+    { id: 3, name: 'toto', password: 'root' },
   ];
   
   export const projects: Project[] = [

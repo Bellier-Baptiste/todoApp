@@ -5,6 +5,7 @@ import Navbar from '../components/navigation/navbar';
 import Sidebar from '../components/navigation/sidebar';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { UserProvider } from '../userContext';
 
 const BoardPage = () => {
 
@@ -28,7 +29,9 @@ const BoardPage = () => {
 
   return (
     <div>
-      <Navbar title='Navbar'/>
+      <UserProvider>
+        <Navbar title='Navbar'/>
+      </UserProvider>
       <Sidebar title='Sidebar'/>
       <h1>Board Page</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
