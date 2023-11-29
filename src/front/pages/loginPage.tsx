@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { users } from '../bdd/database';
 import { useUser } from '../userContext';
+import { Button, TextField } from '@mui/material';
 
 const LoginPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -37,6 +38,9 @@ const LoginPage: React.FC = () => {
         width: '60%',
         height: 'auto',
         borderRadius: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     };
 
     const inputStyle: React.CSSProperties = {
@@ -50,20 +54,26 @@ const LoginPage: React.FC = () => {
       <h1>Login</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form style={formStyle}>
-        <label>
-          Name:
-          <input style={inputStyle} type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input style={inputStyle} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <br />
-        <button style={{marginBottom: '20px'}}type="button" onClick={handleLogin}>
-          Log in
-        </button>
-      </form>
+      <TextField
+        label="Name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        variant="outlined"
+        style={inputStyle}
+      />
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        variant="outlined"
+        style={inputStyle}
+      />
+      <Button variant="contained" onClick={handleLogin} style={{ marginBottom: '20px', width: '200px' }}>
+        Log in
+      </Button>
+    </form>
       <p>Don't have account ? <Link to="/inscription">Sign in</Link></p>
     </div>
   );

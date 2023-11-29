@@ -1,21 +1,24 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faListAlt, faPenToSquare, faUser } from '@fortawesome/free-regular-svg-icons';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 type ListItemProps = {
-  taskName: string;
-  assignedTo: string;
-  deadline: string; // Vous pouvez utiliser le type Date si nécessaire
-  creator: string;
-  state: string;
+    taskName: string;
+    assignedTo: string;
+    deadline: string; // Vous pouvez utiliser le type Date si nécessaire
+    creator: string;
+    state: string;
+    bColor: string;
+    id: number;
 };
 
-const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state }) => {
+const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state, bColor, id }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const itemStyle: React.CSSProperties = {
-        backgroundColor: isHovered ? 'rgba(186, 183, 183, 0.7)' : 'rgba(186, 183, 183, 0.4)',
+        backgroundColor: isHovered ? bColor.substring(0,18)+', 0.7)' : bColor.substring(0,18)+', 0.4)',
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
@@ -38,16 +41,18 @@ const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, cre
 
   return (
     <div className="ticket" style={itemStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-        <button style={buttonStyle} >
-            <h3>{taskName}</h3>
-                <span style={gridStyle}>
-                    <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px'}}/><b>Assigned to </b></p>
-                    <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px'}}/><b>Due date</b></p>
-                    <p><FontAwesomeIcon icon={faPenToSquare} style={{marginRight: '5px'}}/><b>Created by</b></p>
-                    <p><FontAwesomeIcon icon={faListAlt} style={{marginRight: '5px'}}/><b>State</b></p>
-                    <p>{assignedTo}</p><p>{deadline}</p><p>{creator}</p><p>{state}</p>
-                </span>
-        </button>
+        <Link to={`/task/${id}`}>
+            <button style={buttonStyle} >
+                <h3>{taskName}</h3>
+                    <span style={gridStyle}>
+                        <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px'}}/><b>Assigned to </b></p>
+                        <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px'}}/><b>Due date</b></p>
+                        <p><FontAwesomeIcon icon={faPenToSquare} style={{marginRight: '5px'}}/><b>Created by</b></p>
+                        <p><FontAwesomeIcon icon={faListAlt} style={{marginRight: '5px'}}/><b>State</b></p>
+                        <p>{assignedTo}</p><p>{deadline}</p><p>{creator}</p><p>{state}</p>
+                    </span>
+            </button>
+        </Link>
     </div>
   );
 };

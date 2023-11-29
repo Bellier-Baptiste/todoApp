@@ -1,6 +1,6 @@
-import React, { FormEvent, useRef, useState } from 'react';
-import { tasks as initialTasks } from '../../bdd/database';
-import { Link } from 'react-router-dom';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import { tasks as initialTasks, updateTasks } from '../../bdd/database';
+
 
 const Form = () => {
     const [tasks, setTasks] = useState(initialTasks);
@@ -10,7 +10,7 @@ const Form = () => {
     const [dueDate, setDueDate] = useState('');
     const [title, setTitle] = useState('');
     const [assignedTo, setAssignedTo] = useState('');
-    const [formIsValid, setFormIsValid] = useState<boolean>(true);
+    const [, setFormIsValid] = useState<boolean>(true);
 
     const titleRef = useRef<HTMLInputElement>(null);
     const assignedToRef = useRef<HTMLInputElement>(null);
@@ -21,6 +21,8 @@ const Form = () => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
+        let isValid = false;
+
         // Vérifier la validité de chaque champ
         const isTitleValid = titleRef.current?.checkValidity();
         const isAssignedToValid = assignedToRef.current?.checkValidity();
@@ -28,11 +30,13 @@ const Form = () => {
         const isDescriptionValid = descriptionRef.current?.checkValidity();
         console.log('checkval')
         // Mettre à jour l'état de la validité du formulaire
-        setFormIsValid(!!(isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid));
-        console.log('setformisvalid', isTitleValid)
+        isValid = !!(isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid);
+        setFormIsValid(isValid);
+
+        console.log('setformisvalid', isValid)
 
         // Si tous les champs sont valides, ajoutez la tâche
-        if (isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid) {
+        // if (isValid) {
             const newTask = {
                 id: tasks.length + 1,
                 description: description,
@@ -46,10 +50,13 @@ const Form = () => {
             console.log('tache créer', newTask);
 
             setTasks((prevTasks) => [...prevTasks, newTask]);
-            console.log('taches maj')
-
-        }
+            updateTasks(newTask);
+            console.log('Tâches mises à jour :', tasks);
     };
+
+    useEffect(() => {
+        console.log('setformisvalid', setFormIsValid);
+      }, [setFormIsValid]);
 
     const formStyle: React.CSSProperties = {
         backgroundColor: 'palegoldenrod',
@@ -57,49 +64,68 @@ const Form = () => {
         padding: '5px',
         margin: '10px',
         color: 'black',
+        width: '60vw',
+        height: '85vh',
+    };
+
+    const inputStyle: React.CSSProperties = {
+        fontSize: '20px',
+        margin: '20px',
+        borderRadius: '20px',
+    };
+
+    const gridStyle: React.CSSProperties = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 5fr)', 
+    };
+
+    const lineStyle: React.CSSProperties = {
+        backgroundColor: 'black',
+        height: '2px',
+    };
+
+    const labelStyle: React.CSSProperties = {
+        fontSize: '20px',
     };
 
 
-
     return (
-        <form onSubmit={handleSubmit} style={formStyle}>
-        <label>
-            Title:
-            <input type="text" ref={titleRef} value={title} onChange={(e) => setTitle(e.target.value)} required />
-        </label>
-        <br />
+        <div>
+            <form onSubmit={handleSubmit} style={formStyle}>
+                <h2> Add a new task </h2>
+                <div style={lineStyle} /><br />
+                <span style={gridStyle}>
+                    <label style={labelStyle}>
+                        Title:
+                    </label>
+                    <input style={inputStyle} type="text" ref={titleRef} value={title} onChange={(e) => setTitle(e.target.value)} required />
 
-        <label>
-            Assigned to:
-            <input type="text" name="assignedTo" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} required />
-        </label>
-        <br />
+                    <label style={labelStyle}>
+                        Assigned to:
+                    </label>
+                    <input style={inputStyle} type="text" name="assignedTo" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} required />
 
-        <label>
-            Due date:
-            <input type="date" name="dueDate" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
-        </label>
-        <br />
+                    <label style={labelStyle}>
+                        Due date:
+                    </label>
+                    <input style={inputStyle} type="date" name="dueDate" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
 
-        <label>
-            State:
-            <select value={state} onChange={(e) => setState(e.target.value)}>
-            <option value="Incomplete">Incomplete</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-            </select>
-        </label>
-        <br />
-
-        <label>
-            Description:
-            <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-        </label>
-        <br />
-        <Link to={formIsValid ? "#" : "#"}> 
-            <button type="submit">Add</button>
-        </Link>
+                    <label style={labelStyle}>
+                    State:
+                    </label>
+                    <select style={inputStyle} value={state} onChange={(e) => setState(e.target.value)}>
+                        <option value="Incomplete">Incomplete</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Complete">Complete</option>
+                    </select>
+                    <label style={labelStyle}>
+                        Description:
+                    </label>
+                    <textarea style={{ height: '100px', width: '500px' }} name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                </span> <br />
+                <button type="submit">Add</button>
         </form>
+        </div>
     );
 };
 

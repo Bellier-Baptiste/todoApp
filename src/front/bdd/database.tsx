@@ -13,7 +13,7 @@ interface User {
     tasks: Task[];
   }
   
-  interface Task {
+  export interface Task {
     id: number;
     description: string;
     state: string;
@@ -46,6 +46,7 @@ interface User {
     { id: 1, description: 'Task1', state: 'Incomplete', due_date: new Date(), created_by: 'User1', title: 'Task 1', assigned_to: 'User2', category: 'Category1'},
     { id: 2, description: 'Task2', state: 'In Progress', due_date: new Date(), created_by: 'User2', title: 'Task 2', assigned_to: 'User1, User2', category: 'Category1'},
     { id: 3, description: 'Task3', state: 'Complete', due_date: new Date(), created_by: 'User2', title: 'Task 3', assigned_to: 'User1, User2', category: 'Category2'},
+    { id: 4, description: 'Task4', state: 'Complete', due_date: new Date(), created_by: 'User2', title: 'Task 4', assigned_to: 'User1, User2', category: 'Category2'},
   ];
   
   export const categories: Category[] = [
@@ -74,6 +75,11 @@ interface User {
   function getAllUsers() {
     return users
   }
+
+  export const updateTasks = (newTask: Task) => {
+    tasks.push(newTask);
+  }
+
   
   // Utilisation des fonctions
   
@@ -88,4 +94,5 @@ interface User {
   console.log('Existing users:', allUsers);
   console.log('Existing categories:', allCategories);
   console.log('Task of category 1:', taskCategories);
+  console.log('All tasks:', tasks);
   

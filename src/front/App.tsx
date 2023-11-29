@@ -5,6 +5,7 @@ import BoardPage from './pages/boardPage';
 import CalendarPage from './pages/calendarPage';
 import NewTaskPage from './pages/newTaskPage';
 import LoginPage from './pages/loginPage';
+import TaskDetailsPage from './pages/taskDetailsPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/newTask" element={<NewTaskPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/task/:id" element={<TaskDetailsPage />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
