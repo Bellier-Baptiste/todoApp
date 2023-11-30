@@ -2,9 +2,10 @@ import Section from '../components/content/section';
 import Ticket from '../components/content/ticket';
 import { tasks as initialTasks} from '../bdd/database';
 import Navbar from '../components/navigation/navbar';
-import Sidebar from '../components/navigation/sidebar';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { UserProvider } from '../userContext';
+import { Button } from '@mui/material';
 
 const BoardPage = () => {
 
@@ -12,6 +13,7 @@ const BoardPage = () => {
   const [tasksTodo, setTasksTodo] = useState(initialTasks.filter(task => task.state === 'Incomplete'));
   const [tasksInProgress, setTasksInProgress] = useState(initialTasks.filter(task => task.state === 'In Progress'));
   const [tasksCompleted, setTasksCompleted] = useState(initialTasks.filter(task => task.state === 'Complete'));
+  
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,9 +29,10 @@ const BoardPage = () => {
 };
 
   return (
-    <div>
-      <Navbar title='Navbar'/>
-      <Sidebar title='Sidebar'/>
+    <div style={{width: '100vw'}}>
+      <UserProvider>
+        <Navbar />
+      </UserProvider>
       <h1>Board Page</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Section label="Todo" size="30%" bColor="rgba(251, 173, 173, 1)">
@@ -39,6 +42,7 @@ const BoardPage = () => {
               taskName={task.title}
               assignedTo={task.assigned_to}
               deadline={task.due_date.toDateString()}
+              id={task.id}
             />
           ))}
         </Section>
@@ -49,6 +53,7 @@ const BoardPage = () => {
               taskName={task.title}
               assignedTo={task.assigned_to}
               deadline={task.due_date.toDateString()}
+              id={task.id}
             />
           ))}
         </Section>
@@ -59,15 +64,16 @@ const BoardPage = () => {
               taskName={task.title}
               assignedTo={task.assigned_to}
               deadline={task.due_date.toDateString()}
+              id={task.id}
             />
           ))}
         </Section>
       </div >
         <Link to="/newTask">
-            <button style={addButtonStyle} onMouseEnter={() => setIsHovered(true)} 
+            <Button style={addButtonStyle} onMouseEnter={() => setIsHovered(true)} 
                     onMouseLeave={() => setIsHovered(false)}>
               Add
-            </button>
+            </Button>
         </Link>
     </div>
   );
