@@ -8,7 +8,7 @@ type ListItemProps = {
     taskName: string;
     assignedTo: string;
     deadline: string; // Vous pouvez utiliser le type Date si nécessaire
-    creator: string;
+    creator: string | null;
     state: string;
     bColor: string;
     id: number;

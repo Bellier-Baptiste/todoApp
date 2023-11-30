@@ -1,9 +1,13 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { tasks as initialTasks, updateTasks } from '../../bdd/database';
+import { Button, MenuItem, TextField } from '@mui/material';
+import { useUser } from '../../userContext';
 
 
 const Form = () => {
     const [tasks, setTasks] = useState(initialTasks);
+    const { userName } = useUser();
+
 
     const [description, setDescription] = useState('');
     const [state, setState] = useState('Incomplete');
@@ -42,7 +46,7 @@ const Form = () => {
                 description: description,
                 state: state,
                 due_date: new Date(dueDate),
-                created_by: 'Administrator',
+                created_by: userName,
                 title: title,
                 assigned_to: assignedTo,
                 category: 'Category1',
@@ -52,11 +56,18 @@ const Form = () => {
             setTasks((prevTasks) => [...prevTasks, newTask]);
             updateTasks(newTask);
             console.log('Tâches mises à jour :', tasks);
+            console.log('creator : ', newTask.created_by);
+
+            setTitle('');
+            setAssignedTo('');
+            setDueDate('');
+            setDescription('');
     };
 
     useEffect(() => {
         console.log('setformisvalid', setFormIsValid);
       }, [setFormIsValid]);
+
 
     const formStyle: React.CSSProperties = {
         backgroundColor: 'palegoldenrod',
@@ -65,65 +76,96 @@ const Form = () => {
         margin: '10px',
         color: 'black',
         width: '60vw',
-        height: '85vh',
+        height: '90vh',
+        display: '',
     };
 
-    const inputStyle: React.CSSProperties = {
-        fontSize: '20px',
-        margin: '20px',
-        borderRadius: '20px',
-    };
-
+    /*
     const gridStyle: React.CSSProperties = {
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 5fr)', 
-    };
+    };*/
 
     const lineStyle: React.CSSProperties = {
         backgroundColor: 'black',
         height: '2px',
     };
 
-    const labelStyle: React.CSSProperties = {
-        fontSize: '20px',
+    const textFieldStyle: React.CSSProperties = {
+        paddingBottom: '15px',
+        width: '60%',
     };
-
 
     return (
         <div>
             <form onSubmit={handleSubmit} style={formStyle}>
                 <h2> Add a new task </h2>
                 <div style={lineStyle} /><br />
-                <span style={gridStyle}>
-                    <label style={labelStyle}>
-                        Title:
-                    </label>
-                    <input style={inputStyle} type="text" ref={titleRef} value={title} onChange={(e) => setTitle(e.target.value)} required />
-
-                    <label style={labelStyle}>
-                        Assigned to:
-                    </label>
-                    <input style={inputStyle} type="text" name="assignedTo" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} required />
-
-                    <label style={labelStyle}>
-                        Due date:
-                    </label>
-                    <input style={inputStyle} type="date" name="dueDate" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
-
-                    <label style={labelStyle}>
-                    State:
-                    </label>
-                    <select style={inputStyle} value={state} onChange={(e) => setState(e.target.value)}>
-                        <option value="Incomplete">Incomplete</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Complete">Complete</option>
-                    </select>
-                    <label style={labelStyle}>
-                        Description:
-                    </label>
-                    <textarea style={{ height: '100px', width: '500px' }} name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                </span> <br />
-                <button type="submit">Add</button>
+                <span>
+                    <div>
+                    <TextField
+                        label="Title"
+                        variant="outlined"
+                        value={title}
+                        inputRef={titleRef}
+                        onChange={(e) => setTitle(e.target.value)}
+                        style={textFieldStyle}
+                        required
+                    />
+                    </div>
+                    <div>
+                    <TextField
+                        label="Assigned to"
+                        variant="outlined"
+                        value={assignedTo}
+                        inputRef={assignedToRef}
+                        onChange={(e) => setAssignedTo(e.target.value)}
+                        style={textFieldStyle}
+                        required
+                    />
+                    </div>
+                    <div>
+                    <TextField
+                        type="date"
+                        variant="outlined"
+                        value={dueDate}
+                        inputRef={dueDateRef}
+                        onChange={(e) => setDueDate(e.target.value)}
+                        style={textFieldStyle}
+                        required
+                    />
+                    </div>
+                    <div>
+                    <TextField
+                        select
+                        label="State"
+                        variant="outlined"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        style={textFieldStyle}
+                        required>
+                        <MenuItem value="Incomplete">Incomplete</MenuItem>
+                        <MenuItem value="In Progress">In Progress</MenuItem>
+                        <MenuItem value="Complete">Complete</MenuItem>
+                    </TextField>
+                    </div>
+                    <div>
+                    <TextField
+                        label="Description"
+                        variant="outlined"
+                        multiline
+                        rows={4}
+                        value={description}
+                        inputRef={descriptionRef}
+                        style={textFieldStyle}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    </div>
+                    </span>
+                    <br />
+                    <Button type="submit" variant="contained" style={{ backgroundColor: 'rgba(224, 198, 40, 1)', color: 'black' }}>
+                        Add
+                    </Button>
         </form>
         </div>
     );

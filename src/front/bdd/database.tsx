@@ -18,7 +18,7 @@ interface User {
     description: string;
     state: string;
     due_date: Date;
-    created_by: string;
+    created_by: string | null;
     title: string;
     assigned_to: string;
     category: string;

@@ -1,20 +1,22 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+// userContext.tsx
+import { createContext, useContext, ReactNode, useState } from 'react';
 
 interface UserContextProps {
-  children: ReactNode;
+  userName: string | null;
+  setUser: (name: string | null) => void;
 }
 
-const UserContext = createContext({} as { username: string | null; setUser: (name: string) => void });
+const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<UserContextProps> = ({ children }) => {
-  const [username, setUsername] = useState<string | null>(null);
+export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [userName, setUserName] = useState<string | null>(null);
 
-  const setUser = (name: string) => {
-    setUsername(name);
+  const setUser = (name: string | null) => {
+    setUserName(name);
   };
 
   return (
-    <UserContext.Provider value={{ username, setUser }}>
+    <UserContext.Provider value={{ userName, setUser }}>
       {children}
     </UserContext.Provider>
   );

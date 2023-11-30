@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-regular-svg-icons';
 import { tasks, Task } from '../bdd/database';
 import { useEffect, useState } from 'react';
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, TextField, Button, MenuItem } from '@mui/material';
 import { faPencil, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const TaskDetailsPage = () => {
@@ -69,7 +69,11 @@ const TaskDetailsPage = () => {
         <TextField label="Assigned To" variant="outlined" value={task.assigned_to} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
         <TextField label="Due Date" variant="outlined" value={task.due_date.toDateString()} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
         <TextField label="Category" variant="outlined" value={task.category} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField label="State" variant="outlined" value={task.state} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField select label="State" variant="outlined" value={task.state} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }}>
+            <MenuItem value="Incomplete">Incomplete</MenuItem>
+            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Complete">Complete</MenuItem>
+        </TextField>
         <TextField label="Description" variant="outlined" value={task.description} fullWidth multiline rows={4} margin="normal" InputProps={{ readOnly: !isEditable }} />
         {isEditable ? 
                     <Button variant="contained" onClick={() => { /* Logique pour la modification */ }} style={{ backgroundColor: 'rgba(75, 75, 75, 1)', color: 'white' }}>

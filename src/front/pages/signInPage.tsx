@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { users } from '../bdd/database';
-import { useUser } from '../userContext';
 import { Button, TextField } from '@mui/material';
 
-const LoginPage: React.FC = () => {
+const SignInPage: React.FC = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { setUser } = useUser();
 
-
-  const handleLogin = () => {
-    // Ici, vous pouvez implémenter la logique de connexion, par exemple, vérifier les informations dans une base de données
-    // Si la connexion réussit, vous pouvez rediriger l'utilisateur vers la page principale
-    // Sinon, vous pouvez afficher un message d'erreur
-    if (users.find(user => user.name === name && user.password === password)) {
-        window.location.href = '/board'; // par la suite ce sera /today
-        setUser(name);
-    } else {
-      setError('Wrong username or password');
-    }
+  const addUser = () => {
+    
   };
 
     const divStyle: React.CSSProperties = {
@@ -51,8 +38,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div style={divStyle}>
-      <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h1>Sign In</h1>
       <form style={formStyle}>
       <TextField
         label="Name"
@@ -70,13 +56,15 @@ const LoginPage: React.FC = () => {
         variant="outlined"
         style={inputStyle}
       />
-      <Button variant="contained" onClick={handleLogin} style={{ marginBottom: '20px', width: '200px' }}>
-        Log in
-      </Button>
+      <Link to='/list'>
+        <Button variant="contained" onClick={addUser} style={{ marginBottom: '20px', width: '200px' }}>
+            Sign in
+        </Button>
+      </Link>
     </form>
-      <p>Don't have account ? <Link to="/signin">Sign in</Link></p>
+    <p>Already have an account ? <Link to="/login">Log in</Link></p>
     </div>
   );
 };
 
-export default LoginPage;
+export default SignInPage;
