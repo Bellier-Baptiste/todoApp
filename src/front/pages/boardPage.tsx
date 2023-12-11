@@ -4,7 +4,6 @@ import { tasks as initialTasks} from '../bdd/database';
 import Navbar from '../components/navigation/navbar';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { UserProvider } from '../userContext';
 import { Button } from '@mui/material';
 
 const BoardPage = () => {
@@ -30,11 +29,9 @@ const BoardPage = () => {
 
   return (
     <div style={{width: '100vw'}}>
-      <UserProvider>
-        <Navbar />
-      </UserProvider>
+      <Navbar />
       <h1>Board Page</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '90vw', margin: 'auto', marginBottom: '10px' }}>
         <Section label="Todo" size="30%" bColor="rgba(251, 173, 173, 1)">
           {tasksTodo.map(task => (
             <Ticket

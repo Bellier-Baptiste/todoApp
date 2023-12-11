@@ -14,14 +14,14 @@ const CalendarPage = () => {
     const [focusedDay, setFocusedDay] = useState(new Date());
     const [tasksCount, setTasksCount] = useState(3); // Remplacez cela par le véritable nombre de tâches du jour
 
-    const handleDayClick = (selectedDay: SetStateAction<Date>, focusedDay: SetStateAction<Date>) => {
-        if (selectedDay.toString() !== selectedDay.toString()) {
-          // Afficher les tâches du jour sélectionné
-          setSelectedDay(selectedDay);
-          setFocusedDay(focusedDay);
+    const handleDayClick = (value: Value, event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (value instanceof Date) {
+          // Display tasks for the selected day
+          setSelectedDay(value);
+          setFocusedDay(value);
           setTasksCount(3);
-        }
-      };
+      }
+  };
 
     const divStyle: React.CSSProperties = {
         color: 'black',
@@ -36,7 +36,7 @@ const CalendarPage = () => {
 
 
     return (
-        <div>
+        <div style={{width: '100vw'}}>
             <Navbar />
             <div style={divStyle}>
                 <h2>Select a date</h2>
@@ -45,7 +45,6 @@ const CalendarPage = () => {
                     value={selectedDay}
                     activeStartDate={focusedDay}
                     calendarType="US"
-                    calendarStyle="black"
                     selectRange={false}
                     nextLabel="Next"
                     prevLabel="Previous"

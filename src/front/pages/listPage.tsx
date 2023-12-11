@@ -37,6 +37,7 @@ const ListPage = () => {
         gridTemplateColumns: 'repeat(4, 1fr)',
         backgroundColor: 'rgba(75, 75, 75, 1)',
         width: '70%',
+        margin: 'auto',
     };
 
     const iconsStyle = (mode: string): React.CSSProperties => ({
@@ -60,16 +61,17 @@ const ListPage = () => {
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
             <div style={{height: '40px'}}/>
-            <div style={{ width: '70vw', justifyContent: 'space-between', display: displayMode}}>
+            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto'}}>
                 {tasks.map(task => (
                     <ListItem
                         key={task.id}
                         taskName={task.title}
                         assignedTo={task.assigned_to}
                         deadline={task.due_date.toDateString()}
-                        creator={task.created_by}
+                        creator={task.created_by??'Anonymous'}
                         state={task.state}
                         bColor="rgba(224, 224, 224, 0.72)"
+                        //bColor={ticketColor}
                         id={task.id}
                     />
             ))}

@@ -65,7 +65,7 @@ const TaskDetailsPage = () => {
       <div style={divStyle}>
         <FontAwesomeIcon onClick={() => {setIsEditable(true)}} style={pencilIconStyle} icon={faPencil} />
         <TextField label="Title" variant="outlined" value={task.title} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField label="Created By" variant="outlined" value={task.created_by} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField label="Created By" variant="outlined" value={task.created_by} fullWidth margin="normal" InputProps={{ readOnly: true }} />
         <TextField label="Assigned To" variant="outlined" value={task.assigned_to} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
         <TextField label="Due Date" variant="outlined" value={task.due_date.toDateString()} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />
         <TextField label="Category" variant="outlined" value={task.category} fullWidth margin="normal" InputProps={{ readOnly: !isEditable }} />

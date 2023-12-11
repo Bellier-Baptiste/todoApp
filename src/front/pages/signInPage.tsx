@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
+import { users as initialUsers} from '../bdd/database';
 
 const SignInPage: React.FC = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  const [users, setUsers] = useState(initialUsers);
+
   const addUser = () => {
-    
+    if (!users.some(user => user.name === name)) {
+      const newUser = {
+        id: users.length + 1,
+        name: name,
+        password: password,
+      };
+      setUsers(prevUsers => [...prevUsers, newUser]);
+    } else {
+      alert('Username already exists. Please choose a different username.');
+    }
   };
 
     const divStyle: React.CSSProperties = {

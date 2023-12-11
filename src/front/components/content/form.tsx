@@ -33,25 +33,24 @@ const Form = () => {
         const isDueDateValid = dueDateRef.current?.checkValidity();
         const isDescriptionValid = descriptionRef.current?.checkValidity();
         console.log('checkval')
-        // Mettre à jour l'état de la validité du formulaire
         isValid = !!(isTitleValid && isAssignedToValid && isDueDateValid && isDescriptionValid);
         setFormIsValid(isValid);
 
         console.log('setformisvalid', isValid)
 
-        // Si tous les champs sont valides, ajoutez la tâche
-        // if (isValid) {
+        if (isValid) {
             const newTask = {
                 id: tasks.length + 1,
                 description: description,
                 state: state,
                 due_date: new Date(dueDate),
-                created_by: userName,
+                created_by: userName ?? 'Anonymous',
                 title: title,
                 assigned_to: assignedTo,
                 category: 'Category1',
             };
             console.log('tache créer', newTask);
+            console.log('creator', newTask.created_by);
 
             setTasks((prevTasks) => [...prevTasks, newTask]);
             updateTasks(newTask);
@@ -62,6 +61,7 @@ const Form = () => {
             setAssignedTo('');
             setDueDate('');
             setDescription('');
+        }
     };
 
     useEffect(() => {
