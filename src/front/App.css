@@ -43,14 +43,9 @@
 /* Navbar CSS */
 
 .navbar {
-  height: 150px;
-  width: 100%;
   position: fixed;
   top: 0;
-  left: 200px;
-  background-color: #000000;
-  color: #ffffff;
-  font-size: bold;
+  width: 100vw;
 }
 
 /* Sidebar CSS */
@@ -72,4 +67,66 @@
 }
 .tab:hover {
   background-color: rgba(164, 210, 247, 0.4);
+}
+
+.link-style {
+  color: #ffffff;
+}
+.link-style:hover {
+  color: #ffffff;
+}
+
+/* Login Page */
+
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.login-form label {
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.login-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.signup-link {
+  margin-top: 20px;
+}
+
+/* Celendar CSS */
+
+.custom-day {
+  color: black;
+}
+.tasks-count-badge {
+  color: black;
+  border-radius: 50px;
+  font-size: 8px;
+  display: flex;
 }
