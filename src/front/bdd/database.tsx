@@ -19,8 +19,8 @@ interface User {
     state: string;
     due_date: Date;
     created_by: string | null;
-    title: string;
-    assigned_to: string;
+    title: string | undefined;
+    assigned_to: string | undefined;
     category: string;
   }
   
@@ -79,6 +79,19 @@ interface User {
   export const updateTasks = (newTask: Task) => {
     tasks.push(newTask);
   }
+
+  export const updateTask = (updatedTask: Task): Task[] => {
+    const index = tasks.findIndex(task => task.id === updatedTask.id);
+
+    if (index !== -1) {
+      const updatedTasks = [...tasks];
+      updatedTasks[index] = updatedTask;
+      return updatedTasks;
+    }
+
+    return tasks;
+  };
+
 
   
   // Utilisation des fonctions

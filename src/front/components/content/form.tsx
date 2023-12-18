@@ -49,14 +49,10 @@ const Form = () => {
                 assigned_to: assignedTo,
                 category: 'Category1',
             };
-            console.log('tache créer', newTask);
-            console.log('creator', newTask.created_by);
 
             setTasks((prevTasks) => [...prevTasks, newTask]);
             updateTasks(newTask);
-            console.log('Tâches mises à jour :', tasks);
-            console.log('creator : ', newTask.created_by);
-
+            
             setTitle('');
             setAssignedTo('');
             setDueDate('');

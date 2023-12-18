@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './sidebar';
 import { TextField } from '@mui/material';
-//import { navbarBackgroundColor, userLogoBackgroundColor, inputBackgroundColor, inputColor } from '../../colors/colors';
+import Colors from '../../colors/colors';
 
 
 const Navbar: FunctionComponent = () => {
@@ -15,6 +15,7 @@ const Navbar: FunctionComponent = () => {
     const [isDisplay, setIsDisplay] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
     const [searchValue, setSearchValue] = useState('');
+
     /*
     const keyPress: (arg0: any) => KeyboardEventHandler<HTMLDivElement>(e){
         if(e.keyCode == 13){
@@ -23,11 +24,13 @@ const Navbar: FunctionComponent = () => {
         }
      }*/
 
+    const colors = Colors(); 
+
     const divStyle: React.CSSProperties = {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        //backgroundColor: navbarBackgroundColor,
-        backgroundColor: 'rgba(66, 66, 66, 1)',
+        backgroundColor: colors.navbarBackgroundColor,
+        //backgroundColor: 'rgba(66, 66, 66, 1)',
         height: '10%',
         width: '100vw',
     };
@@ -89,4 +92,3 @@ const Navbar: FunctionComponent = () => {
 };
 
 export default Navbar;
-//export { isDarkMode };

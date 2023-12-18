@@ -61,7 +61,7 @@ const ListPage = () => {
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
             <div style={{height: '40px'}}/>
-            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto'}}>
+            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto', backgroundColor: 'blue'}}>
                 {tasks.map(task => (
                     <ListItem
                         key={task.id}
