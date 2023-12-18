@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { users } from '../bdd/database';
+import { users } from '../components/database/database';
 import { useUser } from '../userContext';
 import { Button, TextField } from '@mui/material';
 
@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
     // Ici, vous pouvez implémenter la logique de connexion, par exemple, vérifier les informations dans une base de données
     // Si la connexion réussit, vous pouvez rediriger l'utilisateur vers la page principale
     // Sinon, vous pouvez afficher un message d'erreur
-    if (users.find(user => user.name === name && user.password === password)) {
+    if (users.find((user: { name: string; password: string; }) => user.name === name && user.password === password)) {
         window.location.href = '/board'; // par la suite ce sera /today
         setUser(name);
     } else {

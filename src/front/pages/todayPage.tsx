@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Task, tasks as initialTasks } from '../bdd/database';
+import { Task, tasks as initialTasks } from '../components/database/database';
 import Ticket from '../components/content/ticket';
 import Navbar from '../components/navigation/navbar';
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material';

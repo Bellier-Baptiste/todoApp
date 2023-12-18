@@ -1,13 +1,13 @@
 import { faCalendar, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, Key } from 'react';
 import { Link } from 'react-router-dom';
 
 type TicketProps = {
     taskName: string;
     assignedTo: string;
-    deadline: string; // Vous pouvez utiliser le type Date si nécessaire
-    id: number;
+    deadline: string;
+    id: Key;
 };
 
 const Ticket: React.FC<TicketProps> = ({ taskName, assignedTo, deadline, id }) => {

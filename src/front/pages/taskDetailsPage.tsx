@@ -2,7 +2,7 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-regular-svg-icons';
-import { tasks, Task } from '../bdd/database';
+import { tasks, Task } from '../components/database/database';
 import { useEffect, useState } from 'react';
 import { Typography, TextField, Button, MenuItem } from '@mui/material';
 import { faPencil, faSpinner } from '@fortawesome/free-solid-svg-icons';

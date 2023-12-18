@@ -1,0 +1,57 @@
+{
+  "users": [
+    { "id": 1, "name": "User1", "password": "password1" },
+    { "id": 2, "name": "User2", "password": "password2" },
+    { "id": 3, "name": "toto", "password": "root" }
+  ],
+  "projects": [
+    { "id": 1, "title": "Project1", "members": "User1, User2", "tasks": [] },
+    { "id": 2, "title": "Project2", "members": "User1", "tasks": [] }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Task1",
+      "state": "Incomplete",
+      "due_date": "2023-12-01T00:00:00.000Z",
+      "created_by": "User1",
+      "title": "Task 1",
+      "assigned_to": "User2",
+      "category": "Category1"
+    },
+    {
+      "id": 2,
+      "description": "Task2",
+      "state": "In Progress",
+      "due_date": "2023-12-01T00:00:00.000Z",
+      "created_by": "User2",
+      "title": "Task 2",
+      "assigned_to": "User1, User2",
+      "category": "Category1"
+    },
+    {
+      "id": 3,
+      "description": "Task3",
+      "state": "Complete",
+      "due_date": "2023-12-01T00:00:00.000Z",
+      "created_by": "User2",
+      "title": "Task 3",
+      "assigned_to": "User1, User2",
+      "category": "Category2"
+    },
+    {
+      "id": 4,
+      "description": "Task4",
+      "state": "Complete",
+      "due_date": "2023-12-01T00:00:00.000Z",
+      "created_by": "User2",
+      "title": "Task 4",
+      "assigned_to": "User1, User2",
+      "category": "Category2"
+    }
+  ],
+  "categories": [
+    { "id": 1, "title": "Category1" },
+    { "id": 2, "title": "Category2" }
+  ]
+}

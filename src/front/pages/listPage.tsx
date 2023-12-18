@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/navigation/navbar";
 import { useState } from "react";
-import { tasks } from "../bdd/database";
+import { tasks } from "../components/database/database";
 import ListItem from "../components/content/listItem";
 import { faGrip, faList, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

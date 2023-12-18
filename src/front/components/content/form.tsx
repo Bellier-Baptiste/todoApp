@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { tasks as initialTasks, updateTasks } from '../../bdd/database';
+import { tasks as initialTasks, updateTasks } from '../database/database';
 import { Button, MenuItem, TextField } from '@mui/material';
 import { useUser } from '../../userContext';
 
@@ -52,7 +52,7 @@ const Form = () => {
             console.log('tache créer', newTask);
             console.log('creator', newTask.created_by);
 
-            setTasks((prevTasks) => [...prevTasks, newTask]);
+            setTasks((prevTasks: any) => [...prevTasks, newTask]);
             updateTasks(newTask);
             console.log('Tâches mises à jour :', tasks);
             console.log('creator : ', newTask.created_by);
