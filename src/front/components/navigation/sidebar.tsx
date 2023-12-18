@@ -39,7 +39,6 @@ const Sidebar: FunctionComponent = () => {
             </span>
         </div> 
         : <></> }
-       
         </>
     );
 };

@@ -12,11 +12,8 @@ const LoginPage: React.FC = () => {
 
 
   const handleLogin = () => {
-    // Ici, vous pouvez implémenter la logique de connexion, par exemple, vérifier les informations dans une base de données
-    // Si la connexion réussit, vous pouvez rediriger l'utilisateur vers la page principale
-    // Sinon, vous pouvez afficher un message d'erreur
     if (users.find(user => user.name === name && user.password === password)) {
-        window.location.href = '/board'; // par la suite ce sera /today
+        window.location.href = '/today';
         setUser(name);
     } else {
       setError('Wrong username or password');

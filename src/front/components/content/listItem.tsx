@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 type ListItemProps = {
-    taskName: string;
-    assignedTo: string;
+    taskName: string | undefined;
+    assignedTo: string | undefined;
     deadline: string; // Vous pouvez utiliser le type Date si nécessaire
     creator: string | null;
     state: string;
