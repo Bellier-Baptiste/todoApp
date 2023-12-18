@@ -7,7 +7,7 @@ import NewTaskPage from './pages/newTaskPage';
 import LoginPage from './pages/loginPage';
 import TaskDetailsPage from './pages/taskDetailsPage';
 import SignInPage from './pages/signInPage';
-import { UserProvider } from './userContext';
+import { UserProvider } from './contexts/userContext';
 import TodayPage from './pages/todayPage';
 
 function App() {

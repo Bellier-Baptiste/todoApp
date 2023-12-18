@@ -37,7 +37,7 @@ const CalendarPage = () => {
 
     return (
         <div style={{width: '100vw'}}>
-            <Navbar />
+            <Navbar showSearchInput={false} />
             <div style={divStyle}>
                 <h2>Select a date</h2>
                 <Calendar

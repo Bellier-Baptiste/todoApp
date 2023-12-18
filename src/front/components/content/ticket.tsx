@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 type TicketProps = {
-    taskName: string;
-    assignedTo: string;
+    taskName: string | undefined;
+    assignedTo: string | undefined;
     deadline: string; // Vous pouvez utiliser le type Date si nécessaire
     id: number;
 };
