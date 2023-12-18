@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { users } from '../bdd/database';
-import { useUser } from '../userContext';
+import { useUser } from '../contexts/userContext';
 import { Button, TextField } from '@mui/material';
 
 const LoginPage: React.FC = () => {
@@ -51,26 +51,26 @@ const LoginPage: React.FC = () => {
       <h1>Login</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form style={formStyle}>
-      <TextField
-        label="Name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        variant="outlined"
-        style={inputStyle}
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        variant="outlined"
-        style={inputStyle}
-      />
-      <Button variant="contained" onClick={handleLogin} style={{ marginBottom: '20px', width: '200px' }}>
-        Log in
-      </Button>
-    </form>
+        <TextField
+          label="Name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          variant="outlined"
+          style={inputStyle}
+        />
+        <TextField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          variant="outlined"
+          style={inputStyle}
+        />
+        <Button variant="contained" onClick={handleLogin} style={{ marginBottom: '20px', width: '200px' }}>
+          Log in
+        </Button>
+      </form>
       <p>Don't have account ? <Link to="/signin">Sign in</Link></p>
     </div>
   );

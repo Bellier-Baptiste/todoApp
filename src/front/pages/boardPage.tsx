@@ -29,7 +29,7 @@ const BoardPage = () => {
 
   return (
     <div style={{width: '100vw'}}>
-      <Navbar />
+      <Navbar showSearchInput={false} />
       <h1>Board Page</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '90vw', margin: 'auto', marginBottom: '10px' }}>
         <Section label="Todo" size="30%" bColor="rgba(251, 173, 173, 1)">

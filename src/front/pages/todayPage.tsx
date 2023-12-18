@@ -19,7 +19,6 @@ const TodayPage = () => {
     }, [tasks]);
 
     const handleTaskCompletionChange = (taskId: number) => {
-        // Mettre à jour l'état des tâches en marquant la tâche spécifiée comme complétée
         setTasks(prevTasks =>
             prevTasks.map(task =>
                 task.id === taskId ? { ...task, completed: !task.state } : task
@@ -29,7 +28,7 @@ const TodayPage = () => {
 
     return (
         <div style={{width: '100vw'}}>
-            <Navbar />
+            <Navbar showSearchInput={false}/>
             <br />
             <div style={{justifyContent: 'center', width: '100vw'}}>
                 <h2>{filteredTasks.length} tasks for today</h2>
@@ -43,6 +42,7 @@ const TodayPage = () => {
                                 value="incompleted"
                                 control={<Radio />}
                                 label={task.title}
+                                labelPlacement="end"
                                 onClick={() => handleTaskCompletionChange(task.id)}
                             />
                             <Ticket

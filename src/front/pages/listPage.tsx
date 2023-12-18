@@ -6,36 +6,46 @@ import ListItem from "../components/content/listItem";
 import { faGrip, faList, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
+import Colors from "../colors/colors";
+//import { useDarkMode } from "../contexts/darkModeContext";
 
 const ListPage = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [displayMode, setDisplayMode] = useState('');
-    /*
-    const [tasks] = useState(initialTasks);
-    const [tasksTodo, setTasksTodo] = useState(initialTasks.filter(task => task.state === 'Incomplete'));
-    const [tasksInProgress, setTasksInProgress] = useState(initialTasks.filter(task => task.state === 'In Progress'));
-    const [tasksCompleted, setTasksCompleted] = useState(initialTasks.filter(task => task.state === 'Complete'));
+    const [filteredTasks, setFilteredTasks] = useState(tasks);
+    const [searchValue] = useState('');
+    //const { isDarkMode } = useDarkMode();
 
-    useEffect(() => {
-        setTasksTodo(tasks.filter(task => task.state === 'Incomplete'));
-        setTasksInProgress(tasks.filter(task => task.state === 'In Progress'));
-        setTasksCompleted(tasks.filter(task => task.state === 'Complete'));
-    }, [tasks]);
-    */
+    const handleFilter = () => {
+        const lowerCaseSearch = searchValue.toLowerCase();
+        const filtered = tasks.filter((task) => {
+          return (
+            task.title && task.title.toLowerCase().includes(lowerCaseSearch) ||
+            task.assigned_to && task.assigned_to.toLowerCase().includes(lowerCaseSearch) ||
+            task.due_date.toDateString().toLowerCase().includes(lowerCaseSearch) ||
+            task.state.toLowerCase().includes(lowerCaseSearch)
+          );
+        });
+        setFilteredTasks(filtered);
+      };
+
+
+    const colors = Colors();
 
     const divStyle: React.CSSProperties = {
         width: '100vw',
+        //backgroundColor: 'white',
     };
 
     const addButtonStyle: React.CSSProperties = {
         backgroundColor: isHovered ? 'rgba(186, 183, 183, 0.7)' : 'rgba(186, 183, 183, 0.4)',
-        color: 'black',
+        color: colors.darkAddButtonColor,    
     };
 
     const spanStyle: React.CSSProperties = {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        backgroundColor: 'rgba(75, 75, 75, 1)',
+        backgroundColor: colors.darkDisplayModeSpan,
         width: '70%',
         margin: 'auto',
     };
@@ -52,7 +62,7 @@ const ListPage = () => {
 
     return (
         <div style={divStyle}>
-            <Navbar />
+            <Navbar showSearchInput={true} onSearch={handleFilter}/>
             <div style={{height: '100px'}}/>
             <span style={spanStyle}>
                 <h2> Mode d'affichage :</h2>
@@ -61,8 +71,8 @@ const ListPage = () => {
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
             <div style={{height: '40px'}}/>
-            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto', backgroundColor: 'blue'}}>
-                {tasks.map(task => (
+            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto'}}>
+                {filteredTasks.map(task => (
                     <ListItem
                         key={task.id}
                         taskName={task.title}
@@ -70,8 +80,7 @@ const ListPage = () => {
                         deadline={task.due_date.toDateString()}
                         creator={task.created_by??'Anonymous'}
                         state={task.state}
-                        bColor="rgba(224, 224, 224, 0.72)"
-                        //bColor={ticketColor}
+                        bColor={colors.darkTicketColor}
                         id={task.id}
                     />
             ))}
