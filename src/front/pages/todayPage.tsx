@@ -3,10 +3,14 @@ import { Task, tasks as initialTasks } from '../bdd/database';
 import Ticket from '../components/content/ticket';
 import Navbar from '../components/navigation/navbar';
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { useDarkMode } from '../contexts/darkModeContext';
+import Colors from '../colors/colors';
 
 const TodayPage = () => {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+    const { isDarkMode } = useDarkMode();
+
 
     useEffect(() => {
         const today = new Date().toLocaleDateString();
@@ -26,33 +30,50 @@ const TodayPage = () => {
         );
     };
 
+    const colors = Colors();
+
+    const windowStyle: React.CSSProperties = {
+        margin: 'auto',
+        width: '100vw',
+        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+    };
+
+    const titleStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.amethyst : colors.coffee, 
+    };
+
     const spanStyle: React.CSSProperties = {
         margin: 'auto',
         width: '50vw',
-    }
+    };
 
     const divStyle: React.CSSProperties = {
-        gridTemplateColumns: 'repeat(1, 2fr)',
-    }
+        //gridTemplateColumns: 'repeat(3, 1fr)',
+    };
+
+    const checkStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.amethyst : colors.coffee, 
+    };
 
     return (
-        <div style={{width: '100vw'}}>
+        <div style={windowStyle}>
             <Navbar showSearchInput={false}/>
             <br />
             <div style={{justifyContent: 'center', width: '100vw'}}>
-                <h2>{filteredTasks.length} tasks for today</h2>
+                <h2 style={titleStyle}> Today's tasks ({filteredTasks.length})</h2>
                 {filteredTasks.map(task => (
                     <span style={spanStyle}>
                         <RadioGroup
                             value={task.state ? 'completed' : 'incomplete'}
                             onChange={() => handleTaskCompletionChange(task.id)}
+                            style={checkStyle}
                         >
                             <div style={divStyle}>
                             <FormControlLabel
                                 value="incompleted"
                                 control={<Radio />}
                                 label={task.title}
-                                labelPlacement="end"
+                                labelPlacement="start"
                                 onClick={() => handleTaskCompletionChange(task.id)}
                             />
                             <Ticket
