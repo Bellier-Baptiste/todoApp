@@ -1,16 +1,17 @@
-// TaskDetailsPage.tsx
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-regular-svg-icons';
-import { tasks, Task, updateTask } from '../bdd/database';
+import { tasks as initialTasks, Task, upadateTask_2 } from '../bdd/database';
 import { useEffect, useState } from 'react';
 import { Typography, TextField, Button, MenuItem } from '@mui/material';
 import { faPencil, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import Colors from '../colors/colors';
 
 
 const TaskDetailsPage = () => {
   const { id } = useParams<{ id?: string }>();
   const [task, setTask] = useState<Task | undefined>();
+  const [tasks, setTasks] = useState(initialTasks);
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const navigate = useNavigate();
   const [titleValue, setTitleValue] = useState<string>();
@@ -41,18 +42,28 @@ const TaskDetailsPage = () => {
     );
   }
 
+
   const handleUpdateTask = () => {
     const updatedTask = { ...task };
 
     updatedTask.title = titleValue;
     updatedTask.assigned_to = assignedToValue;
+    //updatedTask.due_date = new Date(dueDateValue);
+    updatedTask.state = stateValue;
+    updatedTask.category = categoryValue;
+    updatedTask.description = descriptionValue;
 
+    setTasks((prevTasks) => [...prevTasks, updatedTask]);
     setTask(updatedTask);
-    updateTask(updatedTask);
-
+    upadateTask_2(updatedTask);
+    console.log(updatedTask);
+    console.log(tasks);
     setIsEditable(false);
+    navigate(-1);
   };
  
+  const colors = Colors();
+  
   const divStyle: React.CSSProperties = {
     backgroundColor: 'grey',
     borderRadius: '20px',
@@ -69,22 +80,27 @@ const TaskDetailsPage = () => {
     color: 'black',
   };
 
+  const backButtonStyle: React.CSSProperties = {
+    color: colors.light,
+    alignItems: 'left',
+  };
+
   return (
     <div>
-      <Link to='/board'>
-        <p style={{ marginRight: '20px', fontSize: '20px', color: 'white' }}>
-          <FontAwesomeIcon style={{alignItems: 'left'}} icon={faCircleLeft} /> Back
+      <Link onClick={() => navigate(-1)} to={''}>
+        <p style={backButtonStyle}>
+          <FontAwesomeIcon style={backButtonStyle} icon={faCircleLeft} /> Back
         </p>
       </Link>
       <Typography variant="h4">Task Details</Typography>
       <div style={divStyle}>
         <FontAwesomeIcon onClick={() => {setIsEditable(true)}} style={pencilIconStyle} icon={faPencil} />
-        <TextField label="Title" variant="outlined" value={titleValue} defaultValue={task.title || ''} fullWidth onChange={(e) => setTitleValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField label="Title" variant="outlined" value={titleValue} defaultValue={task.title ?? ''} fullWidth onChange={(e) => setTitleValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
         <TextField label="Created By" variant="outlined" value={task.created_by} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-        <TextField label="Assigned To" variant="outlined" value={assignedToValue} defaultValue={task.assigned_to ? task.assigned_to : ''} fullWidth onChange={(e) => setAssignedToValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField type="date" label="Due Date" variant="outlined" value={dueDateValue} defaultValue={task.due_date.toISOString().split('T')[0]} fullWidth onChange={(e) => setDueDateValue(e.target.value)} margin="normal" disabled={!isEditable} />
-        <TextField label="Category" variant="outlined" value={categoryValue} defaultValue={task.category} fullWidth onChange={(e) => setCategoryValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField select label="State" variant="outlined" value={stateValue} defaultValue={task.state} fullWidth onChange={(e) => setStateValue(e.target.value)} margin="normal" disabled={!isEditable}>
+        <TextField label="Assigned To" variant="outlined" value={assignedToValue} defaultValue={task.assigned_to ?? ''} fullWidth onChange={(e) => setAssignedToValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField type="date" label="Due Date" variant="outlined" value={dueDateValue} defaultValue={task.due_date.toISOString().split('T')[0] ?? new Date()} fullWidth onChange={(e) => setDueDateValue(e.target.value)} margin="normal" disabled={!isEditable} />
+        <TextField label="Category" variant="outlined" value={categoryValue} defaultValue={task.category ?? ''} fullWidth onChange={(e) => setCategoryValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField select label="State" variant="outlined" value={stateValue} defaultValue={task.state ?? 'Incomplete'} fullWidth onChange={(e) => setStateValue(e.target.value)} margin="normal" disabled={!isEditable}>
             <MenuItem value="Incomplete">Incomplete</MenuItem>
             <MenuItem value="In Progress">In Progress</MenuItem>
             <MenuItem value="Complete">Complete</MenuItem>

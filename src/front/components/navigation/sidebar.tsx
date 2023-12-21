@@ -3,17 +3,27 @@ import Tab from "./tab";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-regular-svg-icons";
+import Colors from "../../colors/colors";
 
 
 
 const Sidebar: FunctionComponent = () => {
     const [isDisplay, setIsDisplay] = useState(true);
 
+    const colors = Colors();
+
     const buttonStyle: React.CSSProperties = {
         height: '8%',
         width: '40%',
         fontSize: '15px',
-    }
+        color: colors.amethyst,
+    };
+
+    const tabStyle: React.CSSProperties = {
+        color: colors.amethyst,
+        backgroundColor: colors.darkSlateGray,
+    };
+
     return ( 
         <>
         {isDisplay ? 
@@ -28,13 +38,13 @@ const Sidebar: FunctionComponent = () => {
             </div>          
             <span className="sidebar-body">
                 <Link to="/list" className="link-style">
-                    <Tab label="List" />
+                    <Tab label="List" style={tabStyle}/>
                 </Link>
                 <Link to="/board" className="link-style">
-                    <Tab label="Board" />
+                    <Tab label="Board" style={tabStyle}/>
                 </Link>
                 <Link to="/calendar" className="link-style">
-                    <Tab label="Calendar" />
+                    <Tab label="Calendar" style={tabStyle}/>
                 </Link>
             </span>
         </div> 
