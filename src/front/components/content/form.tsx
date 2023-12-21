@@ -70,7 +70,7 @@ const Form = () => {
     const colors = Colors();
 
     const formStyle: React.CSSProperties = {
-        backgroundColor: isDarkMode ? colors.darkFormBackgroundColor : colors.lightFormBackgroundColor,
+        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.lightFormBackgroundColor,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',

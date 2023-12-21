@@ -44,18 +44,20 @@ const ListPage = () => {
 
     const divStyle: React.CSSProperties = {
         width: '100vw',
-        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.ivory,
+        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
     };
 
     const addButtonStyle: React.CSSProperties = {
-        backgroundColor: isHovered ? 'rgba(186, 183, 183, 0.7)' : 'rgba(186, 183, 183, 0.4)',
-        color: colors.darkAddButtonColor,    
+        backgroundColor: isDarkMode ? isHovered ? colors.offWhite : colors.lightGray 
+                        : isHovered ? colors.lightCoffee : colors.coffee ,
+        color: colors.darkCharcoal,    
     };
 
     const spanStyle: React.CSSProperties = {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        backgroundColor: colors.darkDisplayModeSpan,
+        backgroundColor: isDarkMode ? colors.darkSlateGray : colors.lightCoffee,
+        color: isDarkMode ? colors.amethyst : colors.black,
         width: '70%',
         margin: 'auto',
     };
@@ -67,8 +69,13 @@ const ListPage = () => {
         marginTop: '20px',
         padding: '10px',
         borderRadius: '50%',
-        backgroundColor: displayMode === mode ? 'rgba(60, 60, 60, 1)' : 'transparent',
+        backgroundColor: displayMode === mode ? isDarkMode ? colors.black : colors.coffee : 'transparent',
     });
+
+    const listItemStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.bluePurple : colors.ivory,
+        backgroundColor: isDarkMode ? colors.lightGray : colors.coffee,
+    };
 
     return (
         <div style={divStyle}>
@@ -87,10 +94,10 @@ const ListPage = () => {
                         taskName={task.title}
                         assignedTo={task.assigned_to}
                         deadline={task.due_date?.toDateString() ?? new Date().toDateString()}
-                        creator={task.created_by??'Anonymous'}
+                        creator={task.created_by ?? 'Anonymous'}
                         state={task.state ?? 'Incomplete'}
-                        bColor={colors.darkTicketColor}
                         id={task.id}
+                        style={listItemStyle}
                     />
             ))}
             </div>

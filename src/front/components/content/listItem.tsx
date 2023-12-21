@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faListAlt, faPenToSquare, faUser } from '@fortawesome/free-regular-svg-icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDarkMode } from '../../contexts/darkModeContext';
+import Colors from '../../colors/colors';
 
 
 type ListItemProps = {
@@ -10,19 +12,23 @@ type ListItemProps = {
     deadline: string; // Vous pouvez utiliser le type Date si nécessaire
     creator: string | null;
     state: string;
-    bColor: string;
     id: number;
+    style?: React.CSSProperties;
 };
 
-const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state, bColor, id }) => {
+const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state, id, style }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const { isDarkMode } = useDarkMode();
+
+    const colors = Colors();
 
     const itemStyle: React.CSSProperties = {
-        backgroundColor: isHovered ? bColor.substring(0,18)+', 0.7)' : bColor.substring(0,18)+', 0.4)',
+        backgroundColor: isHovered ? style?.backgroundColor?.substring(0,18)+', 1)' 
+                        : style?.backgroundColor?.substring(0,18)+', 0.7)',
+        color: isDarkMode ? colors.offWhite : colors.dark,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
-        color: 'black',
     };
     
     const buttonStyle: React.CSSProperties = {

@@ -2,23 +2,33 @@ import { faCalendar, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDarkMode } from '../../contexts/darkModeContext';
+import Colors from '../../colors/colors';
 
 type TicketProps = {
     taskName: string | undefined;
     assignedTo: string | undefined;
     deadline: string; // Vous pouvez utiliser le type Date si nécessaire
     id: number;
+    style?: React.CSSProperties;
 };
 
 const Ticket: React.FC<TicketProps> = ({ taskName, assignedTo, deadline, id }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const { isDarkMode } = useDarkMode();
+
+    const colors = Colors();
 
     const ticketStyle: React.CSSProperties = {
-        backgroundColor: isHovered ? 'rgba(186, 183, 183, 0.7)' : 'rgba(186, 183, 183, 0.4)',
+        backgroundColor: isDarkMode ? isHovered ? colors.darkSlateGray.substring(0,18)+', 0.7)' 
+                                                : colors.darkSlateGray.substring(0,18)+', 0.4)'
+                        : isHovered ? colors.coffee.substring(0,18)+', 0.7)' 
+                                                : colors.coffee.substring(0,18)+', 0.4)',
+        //color: isDarkMode ? colors.amethyst : colors.black,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
-        color: 'black',
+        color: isDarkMode ? colors.ivory : colors.darkCharcoal,
     };
     
     const buttonStyle: React.CSSProperties = {
