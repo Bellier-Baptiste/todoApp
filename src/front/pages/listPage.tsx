@@ -1,40 +1,50 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/navigation/navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { tasks } from "../bdd/database";
 import ListItem from "../components/content/listItem";
-import { faGrip, faList, faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import Colors from "../colors/colors";
-//import { useDarkMode } from "../contexts/darkModeContext";
+import { useDarkMode } from "../contexts/darkModeContext";
 
 const ListPage = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [displayMode, setDisplayMode] = useState('');
     const [filteredTasks, setFilteredTasks] = useState(tasks);
     const [searchValue] = useState('');
-    //const { isDarkMode } = useDarkMode();
+    const { isDarkMode } = useDarkMode();
 
+
+    useEffect(() => {
+        handleFilter();
+    }, [searchValue]);
+      
     const handleFilter = () => {
+        if (searchValue === '') {
+            setFilteredTasks(tasks);
+            return;
+        }
         const lowerCaseSearch = searchValue.toLowerCase();
         const filtered = tasks.filter((task) => {
-          return (
-            task.title && task.title.toLowerCase().includes(lowerCaseSearch) ||
-            task.assigned_to && task.assigned_to.toLowerCase().includes(lowerCaseSearch) ||
-            task.due_date.toDateString().toLowerCase().includes(lowerCaseSearch) ||
-            task.state.toLowerCase().includes(lowerCaseSearch)
-          );
+            return (
+                (task.title && task.title.toLowerCase().includes(lowerCaseSearch)) ||
+                (task.assigned_to && task.assigned_to.toLowerCase().includes(lowerCaseSearch))
+            );
         });
-        setFilteredTasks(filtered);
-      };
+        setFilteredTasks(() => filtered);
+        console.log(filtered);
+    };
+    
+      
 
 
     const colors = Colors();
 
     const divStyle: React.CSSProperties = {
         width: '100vw',
-        //backgroundColor: 'white',
+        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.ivory,
     };
 
     const addButtonStyle: React.CSSProperties = {
@@ -44,7 +54,7 @@ const ListPage = () => {
 
     const spanStyle: React.CSSProperties = {
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateColumns: 'repeat(3, 1fr)',
         backgroundColor: colors.darkDisplayModeSpan,
         width: '70%',
         margin: 'auto',
@@ -67,7 +77,6 @@ const ListPage = () => {
             <span style={spanStyle}>
                 <h2> Mode d'affichage :</h2>
                 <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('')} icon={faList} />
-                <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('check')} icon={faListCheck} />
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
             <div style={{height: '40px'}}/>
@@ -77,9 +86,9 @@ const ListPage = () => {
                         key={task.id}
                         taskName={task.title}
                         assignedTo={task.assigned_to}
-                        deadline={task.due_date.toDateString()}
+                        deadline={task.due_date?.toDateString() ?? new Date().toDateString()}
                         creator={task.created_by??'Anonymous'}
-                        state={task.state}
+                        state={task.state ?? 'Incomplete'}
                         bColor={colors.darkTicketColor}
                         id={task.id}
                     />

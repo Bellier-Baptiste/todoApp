@@ -2,11 +2,14 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { tasks as initialTasks, updateTasks } from '../../bdd/database';
 import { Button, MenuItem, TextField } from '@mui/material';
 import { useUser } from '../../contexts/userContext';
+import Colors from '../../colors/colors';
+import { useDarkMode } from '../../contexts/darkModeContext';
 
 
 const Form = () => {
+    const { isDarkMode } = useDarkMode();
     const [tasks, setTasks] = useState(initialTasks);
-    const { userName } = useUser();
+    const { username } = useUser();
 
 
     const [description, setDescription] = useState('');
@@ -44,7 +47,7 @@ const Form = () => {
                 description: description,
                 state: state,
                 due_date: new Date(dueDate),
-                created_by: userName ?? 'Anonymous',
+                created_by: username ?? 'Anonymous',
                 title: title,
                 assigned_to: assignedTo,
                 category: 'Category1',
@@ -64,32 +67,34 @@ const Form = () => {
         console.log('setformisvalid', setFormIsValid);
       }, [setFormIsValid]);
 
+    const colors = Colors();
 
     const formStyle: React.CSSProperties = {
-        backgroundColor: 'palegoldenrod',
+        backgroundColor: isDarkMode ? colors.darkFormBackgroundColor : colors.lightFormBackgroundColor,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
-        color: 'black',
+        color: isDarkMode ? colors.amethyst : colors.darkGray,
         width: '60vw',
         height: '90vh',
         display: '',
     };
 
-    /*
-    const gridStyle: React.CSSProperties = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 5fr)', 
-    };*/
-
     const lineStyle: React.CSSProperties = {
-        backgroundColor: 'black',
+        backgroundColor: isDarkMode ? colors.amethyst : colors.darkGray,
         height: '2px',
     };
 
     const textFieldStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.darkFormTextColor : colors.lightFormTextColor,
         paddingBottom: '15px',
         width: '60%',
+        borderColor: isDarkMode ? colors.amethyst : colors.lightGray,
+    };
+
+    const buttonStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.amethyst : colors.darkGray,
+        backgroundColor: isDarkMode ? colors.darkGray : colors.lighterGray,
     };
 
     return (
@@ -157,12 +162,12 @@ const Form = () => {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     </div>
-                    </span>
-                    <br />
-                    <Button type="submit" variant="contained" style={{ backgroundColor: 'rgba(224, 198, 40, 1)', color: 'black' }}>
-                        Add
-                    </Button>
-        </form>
+                </span>
+                <br />
+                <Button type="submit" variant="contained" style={buttonStyle}>
+                    Add
+                </Button>
+            </form>
         </div>
     );
 };

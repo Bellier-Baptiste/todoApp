@@ -15,13 +15,13 @@ interface User {
   
   export interface Task {
     id: number;
-    description: string;
-    state: string;
+    description: string | undefined;
+    state: string | undefined;
     due_date: Date;
     created_by: string | null;
     title: string | undefined;
     assigned_to: string | undefined;
-    category: string;
+    category: string | undefined;
   }
   
   interface Category {
@@ -90,6 +90,18 @@ interface User {
     }
 
     return tasks;
+  };
+
+  export const upadateTask_2 = (updatedTask: Task): Task[] => {
+    const index = tasks.findIndex(task => task.id === updatedTask.id);
+  
+    if (index !== -1) {
+      tasks.splice(index, 1, updatedTask);
+    } else {
+      tasks.push(updatedTask);
+    }
+  
+    return [...tasks];
   };
 
 

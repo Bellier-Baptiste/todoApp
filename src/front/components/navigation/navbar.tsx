@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useState } from 'react';
-import { UserProvider, useUser } from '../../contexts/userContext';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { useUser } from '../../contexts/userContext';
 import { faMoon, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './sidebar';
 import { TextField } from '@mui/material';
 import Colors from '../../colors/colors';
+import { useDarkMode } from '../../contexts/darkModeContext';
 
 interface NavbarProps {
   setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
@@ -13,19 +14,21 @@ interface NavbarProps {
   showSearchInput: boolean;
 }
 
-// Declare outside the component
-let searchValueLocal: string = '';
-let setSearchValueLocal: React.Dispatch<React.SetStateAction<string>> | undefined;
 
 const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, showSearchInput }) => {
-  const { userName } = useUser();
-  console.log(userName);
 
+  const { username } = useUser();
+  console.log(username);
   const [isDisplay, setIsDisplay] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode, setIsDarkMode } = useDarkMode();
+  const [searchValue, setSearchValueLocal] = useState('');
 
+  useEffect(() => {
+    console.log('Username:', username);
+  }, [username]);
+  
   const handleSearch = () => {
-    setSearchValue && setSearchValue(searchValueLocal);
+    setSearchValue && setSearchValue(searchValue);
     onSearch && onSearch();
   };
 
@@ -40,7 +43,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   const divStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
-    backgroundColor: isDarkMode ? colors.darkNavbarBackgroundColor : colors.lightNavbarBackgroundColor,
+    backgroundColor: isDarkMode ? colors.darkGray : colors.powderBlue,
     height: '10%',
     width: '100vw',
   };
@@ -52,18 +55,18 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   };
 
   const userLogoStyle: React.CSSProperties = {
-    backgroundColor: colors.darkUserLogoBackgroundColor,
+    backgroundColor: colors.black,
     borderRadius: '50%',
     padding: '7px',
   };
 
   const inputStyle: React.CSSProperties = {
     position: 'absolute',
-    backgroundColor: isDarkMode ? colors.darkInputBackgroundColor : colors.lightInputBackgroundColor,
-    color: colors.darkInputColor,
+    backgroundColor: isDarkMode ? colors.darkCharcoal : colors.lightInputBackgroundColor,
+    color: colors.ivory,
     fontSize: '20px',
     borderRadius: '5px',
-    width: '400px',
+    width: '25vw',
     marginLeft: '450px',
     marginTop: '13px',
   };
@@ -81,30 +84,28 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     marginTop: '18px',
     cursor: 'pointer',
     marginLeft: '1110px',
-    color: isDarkMode ? colors.darkModeLogo : colors.lightModeLogo,
+    color: isDarkMode ? colors.light : colors.black,
   };
 
   return (
-    <UserProvider>
       <div className="navbar" style={divStyle}>
         <FontAwesomeIcon style={navLogoStyle} onMouseEnter={() => { setIsDisplay(true); }} icon={faBars} />
         {isDisplay ? <Sidebar /> : <br />}
-        <h2 style={userLogoPosition}><FontAwesomeIcon style={userLogoStyle} icon={faUser} /> {userName}</h2>
+        <h2 style={userLogoPosition}><FontAwesomeIcon style={userLogoStyle} icon={faUser} /> {username}</h2>
         {showSearchInput && (
           <TextField
             label="Search"
             variant="outlined"
+            value={searchValue}
             style={inputStyle}
             size='small'
-            value={searchValueLocal}
-            onChange={(e) => { searchValueLocal = e.target.value; setSearchValueLocal && setSearchValueLocal(e.target.value); console.log(searchValueLocal)}}
+            onChange={(e) => setSearchValueLocal(e.target.value)}
             onKeyDown={handleKeyDown}
           />
         )}
         {isDarkMode ? <FontAwesomeIcon style={darkModeLogoStyle} icon={faSun} onClick={() => { setIsDarkMode(false); }} /> :
           <FontAwesomeIcon style={darkModeLogoStyle} icon={faMoon} onClick={() => { setIsDarkMode(true); }} />}
       </div>
-    </UserProvider>
   );
 };
 

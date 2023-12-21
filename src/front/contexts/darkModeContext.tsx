@@ -1,4 +1,3 @@
-// darkModeContext.tsx
 import { createContext, useContext, FC, ReactNode, useState } from 'react';
 
 interface DarkModeContextProps {

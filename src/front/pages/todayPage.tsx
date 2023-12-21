@@ -26,6 +26,15 @@ const TodayPage = () => {
         );
     };
 
+    const spanStyle: React.CSSProperties = {
+        margin: 'auto',
+        width: '50vw',
+    }
+
+    const divStyle: React.CSSProperties = {
+        gridTemplateColumns: 'repeat(1, 2fr)',
+    }
+
     return (
         <div style={{width: '100vw'}}>
             <Navbar showSearchInput={false}/>
@@ -33,11 +42,12 @@ const TodayPage = () => {
             <div style={{justifyContent: 'center', width: '100vw'}}>
                 <h2>{filteredTasks.length} tasks for today</h2>
                 {filteredTasks.map(task => (
-                    <span style={{ margin: 'auto', width: '50vw'}}>
+                    <span style={spanStyle}>
                         <RadioGroup
                             value={task.state ? 'completed' : 'incomplete'}
                             onChange={() => handleTaskCompletionChange(task.id)}
                         >
+                            <div style={divStyle}>
                             <FormControlLabel
                                 value="incompleted"
                                 control={<Radio />}
@@ -52,7 +62,7 @@ const TodayPage = () => {
                                 deadline={task.due_date.toDateString()}
                                 id={task.id}
                             />
-
+                            </div>
                         </RadioGroup>
                     </span>
                 ))}

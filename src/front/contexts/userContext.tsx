@@ -1,31 +1,32 @@
-// userContext.tsx
-import { createContext, useContext, ReactNode, useState } from 'react';
+import { createContext, useContext, ReactNode, useState, FC, Dispatch, SetStateAction } from 'react';
 
 interface UserContextProps {
-  userName: string | null;
-  setUser: (name: string | null) => void;
+  username: string | undefined;
+  setUsername: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [userName, setUserName] = useState<string | null>(null);
+interface UserProviderProps {
+  children: ReactNode;
+}
 
-  const setUser = (name: string | null) => {
-    setUserName(name);
-  };
+const UserProvider: FC<UserProviderProps> = ({ children }) => {
+  const [username, setUsername] = useState<string | undefined>(undefined);
 
   return (
-    <UserContext.Provider value={{ userName, setUser }}>
+    <UserContext.Provider value={{ username, setUsername }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-export const useUser = () => {
+const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 };
+
+export { UserProvider, useUser };
