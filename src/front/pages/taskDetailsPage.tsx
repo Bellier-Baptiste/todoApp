@@ -46,18 +46,34 @@ const TaskDetailsPage = () => {
   const handleUpdateTask = () => {
     const updatedTask = { ...task };
 
-    updatedTask.title = titleValue;
-    updatedTask.assigned_to = assignedToValue;
-    //updatedTask.due_date = new Date(dueDateValue);
-    updatedTask.state = stateValue;
-    updatedTask.category = categoryValue;
-    updatedTask.description = descriptionValue;
+    if (titleValue !== undefined) {
+      updatedTask.title = titleValue;
+    }
+  
+    if (assignedToValue !== undefined) {
+      updatedTask.assigned_to = assignedToValue;
+    }
+    /*
+    if (dueDateValue !== undefined) {
+      updatedTask.due_date = dueDateValue;
+    }
+    */
+  
+    if (stateValue !== undefined) {
+      updatedTask.state = stateValue;
+    }
+
+    if (categoryValue !== undefined) {
+      updatedTask.category = categoryValue;
+    }
+  
+    if (descriptionValue !== undefined) {
+      updatedTask.description = descriptionValue;
+    }
 
     setTasks((prevTasks) => [...prevTasks, updatedTask]);
-    setTask(updatedTask);
+    //setTask(updatedTask);
     upadateTask_2(updatedTask);
-    console.log(updatedTask);
-    console.log(tasks);
     setIsEditable(false);
     navigate(-1);
   };
