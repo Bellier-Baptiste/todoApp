@@ -48,9 +48,9 @@ const ListPage = () => {
     };
 
     const addButtonStyle: React.CSSProperties = {
-        backgroundColor: isDarkMode ? isHovered ? colors.offWhite : colors.lightGray 
+        backgroundColor: isDarkMode ? isHovered ? colors.darkGray : colors.darkSlateGray 
                         : isHovered ? colors.lightCoffee : colors.coffee ,
-        color: colors.darkCharcoal,    
+        color: isDarkMode ? colors.amethyst : colors.black,   
     };
 
     const spanStyle: React.CSSProperties = {
@@ -74,7 +74,7 @@ const ListPage = () => {
 
     const listItemStyle: React.CSSProperties = {
         color: isDarkMode ? colors.bluePurple : colors.ivory,
-        backgroundColor: isDarkMode ? colors.lightGray : colors.coffee,
+        backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
     };
 
     return (
@@ -99,7 +99,7 @@ const ListPage = () => {
                         id={task.id}
                         style={listItemStyle}
                     />
-            ))}
+                ))}
             </div>
             <Link to="/newTask">
                 <Button style={addButtonStyle} onMouseEnter={() => setIsHovered(true)} 

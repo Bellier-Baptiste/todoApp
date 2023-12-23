@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
     const user = users.find((user) => user.name === name && user.password === password);
   
     if (user) {
-      setUsername(user.name); // Set the username in the context
+      setUsername(user.name);
       window.location.href = '/today';
     } else {
       setError('Wrong username or password');

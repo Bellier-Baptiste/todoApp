@@ -70,31 +70,39 @@ const Form = () => {
     const colors = Colors();
 
     const formStyle: React.CSSProperties = {
-        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.lightFormBackgroundColor,
+        backgroundColor: isDarkMode ? colors.darkGray : colors.lightCoffee,
         borderRadius: '30px',
         padding: '5px',
-        margin: '10px',
-        color: isDarkMode ? colors.amethyst : colors.darkGray,
+        margin: 'auto',
+        color: isDarkMode ? colors.amethyst : colors.coffee,
         width: '60vw',
         height: '90vh',
         display: '',
     };
 
     const lineStyle: React.CSSProperties = {
-        backgroundColor: isDarkMode ? colors.amethyst : colors.darkGray,
+        backgroundColor: isDarkMode ? colors.amethyst : colors.coffee,
         height: '2px',
     };
 
     const textFieldStyle: React.CSSProperties = {
-        color: isDarkMode ? colors.darkFormTextColor : colors.lightFormTextColor,
+        color: isDarkMode ? colors.amethyst : colors.purple,
         paddingBottom: '15px',
         width: '60%',
         borderColor: isDarkMode ? colors.amethyst : colors.lightGray,
     };
 
+    const propStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.bone : colors.black,
+    };
+
+    const labelStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.bone : colors.black,
+      };
+
     const buttonStyle: React.CSSProperties = {
-        color: isDarkMode ? colors.amethyst : colors.darkGray,
-        backgroundColor: isDarkMode ? colors.darkGray : colors.lighterGray,
+        color: isDarkMode ? colors.amethyst : colors.black,
+        backgroundColor: isDarkMode ? colors.darkSlateGray : colors.coffee,
     };
 
     return (
@@ -111,6 +119,8 @@ const Form = () => {
                         inputRef={titleRef}
                         onChange={(e) => setTitle(e.target.value)}
                         style={textFieldStyle}
+                        inputProps={{style: propStyle}}
+                        InputLabelProps={{ style: labelStyle }}
                         required
                     />
                     </div>
@@ -122,6 +132,8 @@ const Form = () => {
                         inputRef={assignedToRef}
                         onChange={(e) => setAssignedTo(e.target.value)}
                         style={textFieldStyle}
+                        inputProps={{style: propStyle}}
+                        InputLabelProps={{ style: labelStyle }}
                         required
                     />
                     </div>
@@ -133,6 +145,8 @@ const Form = () => {
                         inputRef={dueDateRef}
                         onChange={(e) => setDueDate(e.target.value)}
                         style={textFieldStyle}
+                        inputProps={{style: propStyle}}
+                        InputLabelProps={{ style: labelStyle }}
                         required
                     />
                     </div>
@@ -144,6 +158,8 @@ const Form = () => {
                         value={state}
                         onChange={(e) => setState(e.target.value)}
                         style={textFieldStyle}
+                        inputProps={{style: propStyle}}
+                        InputLabelProps={{ style: labelStyle }}
                         required>
                         <MenuItem value="Incomplete">Incomplete</MenuItem>
                         <MenuItem value="In Progress">In Progress</MenuItem>
@@ -159,6 +175,8 @@ const Form = () => {
                         value={description}
                         inputRef={descriptionRef}
                         style={textFieldStyle}
+                        inputProps={{style: propStyle}}
+                        InputLabelProps={{ style: labelStyle }}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     </div>
