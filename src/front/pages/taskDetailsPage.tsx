@@ -31,7 +31,7 @@ const TaskDetailsPage = () => {
         navigate('/error');
       }
     }
-  }, [id, navigate]);
+  }, [id, navigate, tasks]);
 
   if (!task) {
     return (

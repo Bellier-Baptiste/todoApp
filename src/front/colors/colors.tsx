@@ -26,19 +26,6 @@ const Colors = () => {
     const lightPurpleBlue = 'rgba(80, 87, 122, 1)';
     const lighterPurpleBlue = 'rgba(107, 114, 142, 1)';
 
-
-
-    // List Page
-    const darkTicketColor = 'rgba(224, 224, 224, 0.72)';
-    const darkDisplayModeSpan = 'rgba(75, 75, 75, 1)';
-    const darkAddButtonColor = 'black';
-
-    // Formulaire
-    const darkFormBackgroundColor = 'rgba(45, 45, 45, 1)';
-    const darkFormTextColor = 'rgba(235, 235, 235, 1)';
-    const darkButtonBackgroundColor = 'rgba(48, 48, 48, 1)';
-    const darkButtonTextColor = 'rgba(255, 255, 255, 1)';
-
     // LIGHT MODE
     const light = 'white';
     const lightGray = 'rgba(240, 240, 240, 1)';
@@ -64,32 +51,14 @@ const Colors = () => {
     const darkBeige = 'rgba(250, 238, 209, 1)';
     const lightCoffee = 'rgba(222, 208, 182, 1)';
     const coffee = 'rgba(187, 171, 140, 1)';
-     
-    // Navbar
-    const lightNavbarBackgroundColor = 'white';
-    const lightInputBackgroundColor = 'rgba(216, 216, 216, 1)';
-    const lightModeLogo = 'black';
-
-    // List Page
-
-
-    // Forulaire
-    const lightFormBackgroundColor = 'rgba(235, 235, 235, 1)';
-    const lightFormTextColor = 'rgba(51, 51, 51, 1)';
-    const lightButtonBackgroundColor = 'rgba(248, 248, 248, 1)';
-    const lightButtonTextColor = 'rgba(51, 51, 51, 1)';
 
 
     return { dark, amethyst, darkGray, slightlyDarkerGray, black, darkCharcoal, darkSlateGray,
         indigo, navyBlue, darkBlue, plum, purpleBlue, bluePurple, lightPurpleBlue, lighterPurpleBlue,
         wineRed, darkOrange, forestGreen, garnet, darkerGray, veryDarkGray, darkRed, darkGreen,
         light, lightGray, lighterGray, offWhite, silver, cream, ivory, nude, bone, powderBlue, 
-        diamond, sand, purple, beige, darkBeige, lightCoffee, coffee, cherryRed, creamRed, lightGreen, lightOrange,
-
-        darkTicketColor, darkDisplayModeSpan, darkAddButtonColor,
-        darkFormBackgroundColor, darkFormTextColor, darkButtonBackgroundColor, darkButtonTextColor,
-        lightNavbarBackgroundColor, lightInputBackgroundColor, lightModeLogo,
-        lightFormBackgroundColor, lightFormTextColor, lightButtonBackgroundColor, lightButtonTextColor};
+        diamond, sand, purple, beige, darkBeige, lightCoffee, coffee, cherryRed, creamRed, lightGreen, lightOrange
+        };
 };
 
 export default Colors;

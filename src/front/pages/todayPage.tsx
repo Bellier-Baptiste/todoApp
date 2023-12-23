@@ -14,11 +14,14 @@ const TodayPage = () => {
 
     useEffect(() => {
         const today = new Date().toLocaleDateString();
-        const todayTasks = tasks.filter(task => {
+    
+        const notCompletedTasks = tasks.filter(task => task.state !== 'Complete');
+    
+        const todayTasks = notCompletedTasks.filter(task => {
             const taskDueDate = new Date(task.due_date).toLocaleDateString();
             return taskDueDate === today;
         });
-
+    
         setFilteredTasks(todayTasks);
     }, [tasks]);
 
@@ -29,6 +32,7 @@ const TodayPage = () => {
             )
         );
     };
+
 
     const colors = Colors();
 

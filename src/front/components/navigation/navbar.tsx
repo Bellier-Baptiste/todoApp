@@ -52,7 +52,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     position: 'absolute',
     marginTop: '15px',
     marginLeft: '1250px',
-    color: isDarkMode ? colors.light : colors.coffee,
+    color: isDarkMode ? colors.bone : colors.coffee,
   };
 
   const userLogoStyle: React.CSSProperties = {
@@ -76,7 +76,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     fontSize: '30px',
     marginTop: '18px',
     marginLeft: '18px',
-    color: isDarkMode ? colors.light : colors.beige,
+    color: isDarkMode ? colors.bone : colors.beige,
   };
 
   const darkModeLogoStyle: React.CSSProperties = {
@@ -85,7 +85,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     marginTop: '18px',
     cursor: 'pointer',
     marginLeft: '1110px',
-    color: isDarkMode ? colors.light : colors.beige,
+    color: isDarkMode ? colors.bone : colors.beige,
   };
 
   return (

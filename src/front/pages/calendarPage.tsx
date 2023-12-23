@@ -1,76 +1,101 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Navbar from '../components/navigation/navbar';
+import { useDarkMode } from '../contexts/darkModeContext';
+import Colors from '../colors/colors';
+import { tasks } from '../bdd/database';
+import ListItem from '../components/content/listItem';
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const CalendarPage = () => {
-    const [value, onChange] = useState<Value>(new Date());
+  const { isDarkMode } = useDarkMode();
+  let selectedDayTasks = tasks;
 
-    const [selectedDay, setSelectedDay] = useState(new Date());
-    const [focusedDay, setFocusedDay] = useState(new Date());
-    const [tasksCount, setTasksCount] = useState(3); // Remplacez cela par le véritable nombre de tâches du jour
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
-    const handleDayClick = (value: Value, event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if (value instanceof Date) {
-          // Display tasks for the selected day
-          setSelectedDay(value);
-          setFocusedDay(value);
-          setTasksCount(3);
-      }
+  const colors = Colors();
+
+  const divStyle: React.CSSProperties = {
+      color: isDarkMode ? colors.amethyst : colors.coffee,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100vw',
+      height: '100%',
+      backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+      margin: 'auto',
   };
 
-    const divStyle: React.CSSProperties = {
-        color: 'black',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '75vw', 
-        height: '75vh',
-        backgroundColor: 'blue',
-        margin: 'auto',
-    };
-
-
-    return (
-        <div style={{width: '100vw'}}>
-            <Navbar showSearchInput={false} />
-            <div style={divStyle}>
-                <h2>Select a date</h2>
-                <Calendar
-                    onChange={handleDayClick}
-                    value={selectedDay}
-                    activeStartDate={focusedDay}
-                    calendarType="US"
-                    selectRange={false}
-                    nextLabel="Next"
-                    prevLabel="Previous"
-                    locale="us-US"
-                    tileClassName="custom-day"
-                    tileContent={({ date }) => {
-                        return (
-                          <>
-                            {
-                              <div className="tasks-count-badge">
-                                <p>{tasksCount}</p>
-                              </div>
-                            }
-                          </>
-                        );
-                      }}
-                    /*tileContent={({ date }) => {
-                    // Personnalisez le contenu des tuiles si nécessaire
-                    // Vous pouvez afficher des événements ou d'autres informations sur chaque jour
-                    }}*/
+  return (
+      <div style={{ width: '100%', height: '100%' }}>
+          <Navbar showSearchInput={false} />
+          <br />
+          <div style={divStyle}>
+              <h2>Select a date</h2>
+              <Calendar
+                  className='calendar custom-calendar'
+                  onChange={handleDayClick}
+                  value={selectedDay}
+                  calendarType="US"
+                  selectRange={false}
+                  nextLabel=">"
+                  prevLabel="<"
+                  tileClassName="custom-day"
+                  tileContent={({ date, view }) => (
+                    view === 'month' && getTasksCountForDay(date) > 0 ? (
+                      <div className="tasks-count-badge">
+                        <p className='pastille'>{getTasksCountForDay(date)}</p>
+                      </div>
+                    )
+                    : null
+                  )}
+              />
+              {getTasksCountForDay(selectedDay) == 0 ?
+                <h2>{formatDate(selectedDay)} : No task</h2>
+                : getTasksCountForDay(selectedDay) == 1 ?
+                  <h2>{formatDate(selectedDay)} : {getTasksCountForDay(selectedDay)} task </h2>
+                : <h2>{formatDate(selectedDay)} : {getTasksCountForDay(selectedDay)} tasks</h2>
+              }
+              {selectedDayTasks.map(task => (
+                <ListItem 
+                  taskName={task.title} 
+                  assignedTo={task.assigned_to} 
+                  deadline={task.due_date.toLocaleDateString()} 
+                  creator={task.created_by} 
+                  state={task.state ?? 'Incomplete'} 
+                  id={task.id}
                 />
-            </div>
-        </div>
-        
-    );
+              ))}
+          </div>
+      </div>
+  );
+
+  function getTasksCountForDay(date: Date) {
+    const dayTasks = tasks.filter(task => {
+        const taskDueDate = task.due_date.toLocaleDateString();
+        return taskDueDate === date.toLocaleDateString();
+    });
+    selectedDayTasks = dayTasks
+    if (dayTasks.length > 0) {
+        return dayTasks.length;
+    } else {
+      return 0;
+    }
+  }
+
+  function handleDayClick(value: Value) {
+      if (value instanceof Date) {
+          setSelectedDay(value);
+      }
+  }
+  
+  function formatDate(date: Date): string {
+    return date.toLocaleDateString('us-US', { day: 'numeric', month: 'long' });
+  }
 };
-  
+
 export default CalendarPage;
-  

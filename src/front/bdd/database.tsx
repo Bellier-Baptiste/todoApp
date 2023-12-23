@@ -97,8 +97,6 @@ interface User {
   
     if (index !== -1) {
       tasks.splice(index, 1, updatedTask);
-    } else {
-      tasks.push(updatedTask);
     }
   
     return [...tasks];

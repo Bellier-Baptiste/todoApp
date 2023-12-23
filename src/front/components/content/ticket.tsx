@@ -20,19 +20,19 @@ const Ticket: React.FC<TicketProps> = ({ taskName, assignedTo, deadline, id }) =
     const colors = Colors();
 
     const ticketStyle: React.CSSProperties = {
-        backgroundColor: isDarkMode ? isHovered ? colors.darkSlateGray.substring(0,18)+', 0.7)' 
+        /*backgroundColor: isDarkMode ? isHovered ? colors.darkSlateGray.substring(0,18)+', 0.7)' 
                                                 : colors.darkSlateGray.substring(0,18)+', 0.4)'
                         : isHovered ? colors.coffee.substring(0,18)+', 0.7)' 
-                                                : colors.coffee.substring(0,18)+', 0.4)',
-        //color: isDarkMode ? colors.amethyst : colors.black,
+                                                : colors.coffee.substring(0,18)+', 0.4)',*/
+        backgroundColor: isDarkMode ? isHovered ? colors.black : colors.darkSlateGray
+                        : isHovered ? colors.coffee : colors.lightCoffee,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
-        color: isDarkMode ? colors.ivory : colors.darkCharcoal,
     };
     
     const buttonStyle: React.CSSProperties = {
-        color: 'black',
+        color: isDarkMode ? colors.ivory : colors.darkCharcoal,
         backgroundColor: 'transparent',
         width: '100%',
         height: '100%',

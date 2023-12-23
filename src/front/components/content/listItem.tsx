@@ -16,23 +16,25 @@ type ListItemProps = {
     style?: React.CSSProperties;
 };
 
-const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state, id, style }) => {
+const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, creator, state, id }) => {
     const [isHovered, setIsHovered] = useState(false);
     const { isDarkMode } = useDarkMode();
 
     const colors = Colors();
 
     const itemStyle: React.CSSProperties = {
-        backgroundColor: isHovered ? style?.backgroundColor?.substring(0,18)+', 1)' 
-                        : style?.backgroundColor?.substring(0,18)+', 0.7)',
-        color: isDarkMode ? colors.offWhite : colors.dark,
+        //backgroundColor: isHovered ? style?.backgroundColor?.substring(0,18)+', 1)' 
+                        //: style?.backgroundColor?.substring(0,18)+', 0.7)',
+        //color: isDarkMode ? colors.offWhite : colors.dark,
+        backgroundColor: isDarkMode ? isHovered ? colors.darkSlateGray : colors.darkGray
+                        : isHovered ? colors.lightCoffee : colors.coffee,
         borderRadius: '30px',
         padding: '5px',
         margin: '10px',
     };
     
     const buttonStyle: React.CSSProperties = {
-        color: 'black',
+        color: isDarkMode ? colors.amethyst : colors.darkCharcoal,
         backgroundColor: 'transparent',
         width: '100%',
         height: '100%',
@@ -43,6 +45,7 @@ const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, cre
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 2fr)', 
         gap: '5px',
+        color: isDarkMode ? colors.bone : colors.darkCharcoal,
     };
 
   return (
