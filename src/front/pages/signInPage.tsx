@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 import { users as initialUsers} from '../bdd/database';
+import Colors from '../colors/colors';
 
 const SignInPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -22,8 +23,11 @@ const SignInPage: React.FC = () => {
     }
   };
 
+    const colors = Colors();
+    
     const divStyle: React.CSSProperties = {
         backgroundColor: 'rgba(38, 39, 38, 1)',
+        color: colors.amethyst,
         width: '90vw',
         height: 'auto',
         margin: 'auto',
@@ -31,7 +35,7 @@ const SignInPage: React.FC = () => {
 
     const formStyle: React.CSSProperties = {
         color: 'black',
-        backgroundColor: 'white',
+        backgroundColor: colors.slightlyDarkerGray,
         margin: 'auto',
         alignContent: 'center',
         width: '60%',
@@ -45,8 +49,21 @@ const SignInPage: React.FC = () => {
     const inputStyle: React.CSSProperties = {
         fontSize: '30px',
         margin: '20px',
-    }
+    };
+
+    const propStyle: React.CSSProperties = {
+      color: colors.bone,
+    };
+
+    const labelStyle: React.CSSProperties = {
+      color: colors.bone,
+    };
     
+    const buttonStyle: React.CSSProperties = {
+      marginBottom: '20px', 
+      width: '200px',
+      backgroundColor: colors.amethyst,
+    };
 
   return (
     <div style={divStyle}>
@@ -59,6 +76,8 @@ const SignInPage: React.FC = () => {
         onChange={(e) => setName(e.target.value)}
         variant="outlined"
         style={inputStyle}
+        InputProps={{style: propStyle}} 
+        InputLabelProps={{style: labelStyle}}
       />
       <TextField
         label="Password"
@@ -67,9 +86,11 @@ const SignInPage: React.FC = () => {
         onChange={(e) => setPassword(e.target.value)}
         variant="outlined"
         style={inputStyle}
+        InputProps={{style: propStyle}} 
+        InputLabelProps={{style: labelStyle}}
       />
       <Link to='/list'>
-        <Button variant="contained" onClick={addUser} style={{ marginBottom: '20px', width: '200px' }}>
+        <Button variant="contained" onClick={addUser} style={buttonStyle}>
             Sign in
         </Button>
       </Link>

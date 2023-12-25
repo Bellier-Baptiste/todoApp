@@ -1,15 +1,16 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Tab from "./tab";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-regular-svg-icons";
 import Colors from "../../colors/colors";
 import { useDarkMode } from "../../contexts/darkModeContext";
+import { useSidebar } from "../../contexts/sidebarContext";
 
 
 
 const Sidebar: FunctionComponent = () => {
-    const [isDisplay, setIsDisplay] = useState(true);
+    const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
     const { isDarkMode } = useDarkMode();
 
     const colors = Colors();
@@ -34,10 +35,10 @@ const Sidebar: FunctionComponent = () => {
 
     return ( 
         <>
-        {isDisplay ? 
+        {isSidebarOpen ? 
         <div className="sidebar" style={divStyle}> 
             <div style={{marginLeft: '80%', fontSize: '20px'}}>
-                <FontAwesomeIcon onClick={() => {setIsDisplay(false)}} style={{cursor: 'pointer'}} icon={faCircleLeft} />
+                <FontAwesomeIcon onClick={() => {setIsSidebarOpen(false)}} style={{cursor: 'pointer'}} icon={faCircleLeft} />
             </div>
             <div>            
                 <Link to='/today'>

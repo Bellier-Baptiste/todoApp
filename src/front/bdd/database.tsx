@@ -47,6 +47,8 @@ interface User {
     { id: 2, description: 'Task2', state: 'In Progress', due_date: new Date(), created_by: 'User2', title: 'Task 2', assigned_to: 'User1, User2', category: 'Category1'},
     { id: 3, description: 'Task3', state: 'Complete', due_date: new Date(), created_by: 'User2', title: 'Task 3', assigned_to: 'User1, User2', category: 'Category2'},
     { id: 4, description: 'Task4', state: 'Complete', due_date: new Date(), created_by: 'User2', title: 'Task 4', assigned_to: 'User1, User2', category: 'Category2'},
+    { id: 5, description: 'Jour de Noël', state: 'Incomplete', due_date: new Date('December 25, 2023'), created_by: 'toto', title: 'Noël', assigned_to: 'Santa Claus', category: 'Fête'},
+    { id: 6, description: 'Nouvel an', state: 'Incomplete', due_date: new Date('January 1, 2024'), created_by: 'toto', title: 'Nouvel an', assigned_to: 'Eve', category: 'Fête'},
   ];
   
   export const categories: Category[] = [
