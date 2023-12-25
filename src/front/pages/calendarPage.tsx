@@ -44,6 +44,8 @@ const CalendarPage = () => {
                   selectRange={false}
                   nextLabel=">"
                   prevLabel="<"
+                  next2Label=">>" // Nouvelle propriété pour le bouton suivant
+                  prev2Label="<<"
                   tileClassName="custom-day"
                   tileContent={({ date, view }) => (
                     view === 'month' && getTasksCountForDay(date) > 0 ? (

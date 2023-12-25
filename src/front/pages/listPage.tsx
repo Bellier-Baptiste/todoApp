@@ -60,6 +60,7 @@ const ListPage = () => {
         color: isDarkMode ? colors.amethyst : colors.black,
         width: '70%',
         margin: 'auto',
+        borderRadius: '20px',
     };
 
     const iconsStyle = (mode: string): React.CSSProperties => ({
@@ -82,7 +83,7 @@ const ListPage = () => {
             <Navbar showSearchInput={true} onSearch={handleFilter}/>
             <div style={{height: '100px'}}/>
             <span style={spanStyle}>
-                <h2> Mode d'affichage :</h2>
+                <h2> Display mode :</h2>
                 <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('')} icon={faList} />
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>

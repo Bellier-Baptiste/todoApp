@@ -3,38 +3,33 @@ import { Link } from 'react-router-dom';
 import { users } from '../bdd/database';
 import { useUser } from '../contexts/userContext';
 import { Button, TextField } from '@mui/material';
+import Colors from '../colors/colors';
 
 const LoginPage: React.FC = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { setUsername } = useUser();
-
+  const { username, setUsername } = useUser();
 
   const handleLogin = () => {
     const user = users.find((user) => user.name === name && user.password === password);
   
     if (user) {
-      setUsername(user.name);
-      window.location.href = '/today';
-    } else {
-      setError('Wrong username or password');
-    }
-  };
-  /*
-  const handleLogin = () => {
-    const user = users.find((user) => user.name === name && user.password === password);
-
-    if (user) {
-      window.location.href = '/today';
+      console.log("Name",name);
+      console.log("User",user);
       setUsername(name);
+      console.log("Username",username);
+      window.location.href = '/today';
     } else {
       setError('Wrong username or password');
     }
   };
-  */
+
+  const colors = Colors();
+  
   const divStyle: React.CSSProperties = {
     backgroundColor: 'rgba(38, 39, 38, 1)',
+    color: colors.amethyst,
     width: '90vw',
     height: 'auto',
     margin: 'auto',
@@ -42,12 +37,12 @@ const LoginPage: React.FC = () => {
 
   const formStyle: React.CSSProperties = {
     color: 'black',
-    backgroundColor: 'white',
+    backgroundColor: colors.slightlyDarkerGray,
     margin: 'auto',
     alignContent: 'center',
     width: '60%',
     height: 'auto',
-    borderRadius: '20px',
+    borderRadius: '30px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -56,6 +51,20 @@ const LoginPage: React.FC = () => {
   const inputStyle: React.CSSProperties = {
     fontSize: '30px',
     margin: '20px',
+  };
+
+  const buttonStyle: React.CSSProperties = {
+    backgroundColor: colors.amethyst,
+    marginBottom: '20px', 
+    width: '200px' 
+  };
+
+  const propStyle: React.CSSProperties = {
+    color: colors.bone,
+  };
+
+  const labelStyle: React.CSSProperties = {
+    color: colors.bone,
   };
 
   return (
@@ -70,6 +79,8 @@ const LoginPage: React.FC = () => {
           onChange={(e) => setName(e.target.value)}
           variant="outlined"
           style={inputStyle}
+          InputProps={{style: propStyle}} 
+          InputLabelProps={{style: labelStyle}}
         />
         <TextField
           label="Password"
@@ -78,8 +89,10 @@ const LoginPage: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           variant="outlined"
           style={inputStyle}
+          InputProps={{style: propStyle}} 
+          InputLabelProps={{style: labelStyle}}
         />
-        <Button variant="contained" onClick={handleLogin} style={{ marginBottom: '20px', width: '200px' }}>
+        <Button variant="contained" onClick={handleLogin} style={buttonStyle}>
           Log in
         </Button>
       </form>

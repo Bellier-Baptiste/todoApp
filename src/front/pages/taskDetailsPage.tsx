@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Typography, TextField, Button, MenuItem } from '@mui/material';
 import { faPencil, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Colors from '../colors/colors';
+import { useDarkMode } from '../contexts/darkModeContext';
 
 
 const TaskDetailsPage = () => {
@@ -20,6 +21,7 @@ const TaskDetailsPage = () => {
   const [stateValue, setStateValue] = useState<string>();
   const [categoryValue, setCategoryValue] = useState<string>();
   const [descriptionValue, setDescriptionValue] = useState<string>();
+  const { isDarkMode } = useDarkMode();
 
 
   useEffect(() => {
@@ -80,29 +82,46 @@ const TaskDetailsPage = () => {
  
   const colors = Colors();
   
+  const windowStyle: React.CSSProperties = {
+    backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+    width: '100vw',
+    color: isDarkMode ? colors.amethyst : colors.coffee,
+  };
+
   const divStyle: React.CSSProperties = {
-    backgroundColor: 'grey',
+    backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
+    width: '80vw',
+    margin: 'auto',
+    alignItems: 'center',
     borderRadius: '20px',
     padding: '20px',
     paddingTop: '40px',
   };
 
   const pencilIconStyle: React.CSSProperties = {
-    position: 'absolute', 
-    top: '160px',
-    right: '55px',
+    position: 'relative', 
+    bottom: '20px',
+    left: '230px',
     fontSize: '20px',
     cursor: 'pointer',
-    color: 'black',
+    color: isDarkMode ? colors.amethyst : colors.bone,
   };
 
   const backButtonStyle: React.CSSProperties = {
-    color: colors.light,
+    color: isDarkMode ? colors.amethyst : colors.coffee,
     alignItems: 'left',
   };
 
+  const propStyle: React.CSSProperties = {
+    color: isDarkMode ? colors.bone : colors.black,
+  };
+
+  const labelStyle: React.CSSProperties = {
+      color: isDarkMode ? colors.bone : colors.black,
+  };
+
   return (
-    <div>
+    <div style={windowStyle}>
       <Link onClick={() => navigate(-1)} to={''}>
         <p style={backButtonStyle}>
           <FontAwesomeIcon style={backButtonStyle} icon={faCircleLeft} /> Back
@@ -111,17 +130,25 @@ const TaskDetailsPage = () => {
       <Typography variant="h4">Task Details</Typography>
       <div style={divStyle}>
         <FontAwesomeIcon onClick={() => {setIsEditable(true)}} style={pencilIconStyle} icon={faPencil} />
-        <TextField label="Title" variant="outlined" value={titleValue} defaultValue={task.title ?? ''} fullWidth onChange={(e) => setTitleValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField label="Created By" variant="outlined" value={task.created_by} fullWidth margin="normal" InputProps={{ readOnly: true }} />
-        <TextField label="Assigned To" variant="outlined" value={assignedToValue} defaultValue={task.assigned_to ?? ''} fullWidth onChange={(e) => setAssignedToValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField type="date" label="Due Date" variant="outlined" value={dueDateValue} defaultValue={task.due_date.toISOString().split('T')[0] ?? new Date()} fullWidth onChange={(e) => setDueDateValue(e.target.value)} margin="normal" disabled={!isEditable} />
-        <TextField label="Category" variant="outlined" value={categoryValue} defaultValue={task.category ?? ''} fullWidth onChange={(e) => setCategoryValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
-        <TextField select label="State" variant="outlined" value={stateValue} defaultValue={task.state ?? 'Incomplete'} fullWidth onChange={(e) => setStateValue(e.target.value)} margin="normal" disabled={!isEditable}>
+        <TextField label="Title" variant="outlined" value={titleValue} defaultValue={task.title ?? ''} fullWidth onChange={(e) => setTitleValue(e.target.value)} 
+                  margin="normal" InputProps={{style: propStyle,  readOnly: !isEditable }} InputLabelProps={{style: labelStyle}}/>
+        <TextField label="Created By" variant="outlined" value={task.created_by} fullWidth margin="normal" 
+                  InputProps={{style: propStyle,  readOnly: !isEditable }} InputLabelProps={{style: labelStyle}} />
+        <TextField label="Assigned To" variant="outlined" value={assignedToValue} defaultValue={task.assigned_to ?? ''} fullWidth onChange={(e) => setAssignedToValue(e.target.value)} 
+                  margin="normal" InputProps={{style: propStyle,  readOnly: !isEditable }} InputLabelProps={{style: labelStyle}} />
+        <TextField type="date" label="Due Date" variant="outlined" value={dueDateValue} defaultValue={task.due_date.toISOString().split('T')[0] ?? new Date()} 
+                  fullWidth onChange={(e) => setDueDateValue(e.target.value)} margin="normal" disabled={!isEditable} InputProps={{style: propStyle}} InputLabelProps={{style: labelStyle}}/>
+        <TextField label="Category" variant="outlined" value={categoryValue} defaultValue={task.category ?? ''} fullWidth onChange={(e) => setCategoryValue(e.target.value)} 
+                  margin="normal" InputProps={{style: propStyle,  readOnly: !isEditable }} InputLabelProps={{style: labelStyle}}/>
+        <TextField select label="State" variant="outlined" value={stateValue} defaultValue={task.state ?? 'Incomplete'} 
+                  fullWidth onChange={(e) => setStateValue(e.target.value)} margin="normal" disabled={!isEditable} InputProps={{style: propStyle}} InputLabelProps={{style: labelStyle}}>
             <MenuItem value="Incomplete">Incomplete</MenuItem>
             <MenuItem value="In Progress">In Progress</MenuItem>
             <MenuItem value="Complete">Complete</MenuItem>
         </TextField>
-        <TextField label="Description" variant="outlined" value={descriptionValue} defaultValue={task.description} fullWidth multiline rows={4} onChange={(e) => setDescriptionValue(e.target.value)} margin="normal" InputProps={{ readOnly: !isEditable }} />
+        <TextField label="Description" variant="outlined" value={descriptionValue} defaultValue={task.description} 
+                  fullWidth multiline rows={4} onChange={(e) => setDescriptionValue(e.target.value)} margin="normal" 
+                  InputProps={{style: propStyle,  readOnly: !isEditable }} InputLabelProps={{style: labelStyle}}/>
         {isEditable ? 
           <Button variant="contained" onClick={handleUpdateTask} style={{ backgroundColor: 'rgba(75, 75, 75, 1)', color: 'white' }}>
               Apply
