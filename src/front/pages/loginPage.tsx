@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { users } from '../bdd/database';
 import { useUser } from '../contexts/userContext';
 import { Button, TextField } from '@mui/material';
@@ -9,17 +9,15 @@ const LoginPage: React.FC = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { username, setUsername } = useUser();
+  const { setUsername } = useUser();
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     const user = users.find((user) => user.name === name && user.password === password);
   
     if (user) {
-      console.log("Name",name);
-      console.log("User",user);
       setUsername(name);
-      console.log("Username",username);
-      window.location.href = '/today';
+      navigate('/today');
     } else {
       setError('Wrong username or password');
     }
