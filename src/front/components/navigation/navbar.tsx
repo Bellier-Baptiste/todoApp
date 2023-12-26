@@ -2,12 +2,14 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { useUser } from '../../contexts/userContext';
 import { faMoon, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBars, faHome } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './sidebar';
 import { TextField } from '@mui/material';
 import Colors from '../../colors/colors';
 import { useDarkMode } from '../../contexts/darkModeContext';
 import { useSidebar } from '../../contexts/sidebarContext';
+import { Dropdown } from 'flowbite-react';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
@@ -59,29 +61,37 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    marginTop: '35px',
-    marginLeft: '33vw',
-  };
-
-  const userLogoPosition: React.CSSProperties = {
-    position: 'absolute',
-    marginTop: '10px',
-    marginLeft: '1120px',
-    color: isDarkMode ? colors.bone : colors.coffee,
+    marginTop: '13px',
+    marginLeft: '90vw',
+    fontSize: '20px',
   };
 
   const userLogoStyle: React.CSSProperties = {
     backgroundColor: isDarkMode ? colors.black : colors.beige,
     borderRadius: '50%',
     padding: '7px',
+    fontSize: '28px',
+    color: isDarkMode ? colors.amethyst : colors.coffee,
   };
 
-  const nameStyle: React.CSSProperties = {
-    color: isDarkMode ? colors.amethyst : colors.beige,
-    position: 'absolute',
-    marginTop: '50px',
-    marginLeft: '1110px',
-    fontSize: '10px',
+  const dropdownStyle: React.CSSProperties = {
+    fontSize: '20px',
+    borderRadius: '50%',
+    //position: 'absolute',
+    //marginTop: '50px',
+    //marginLeft: '1110px',
+    backgroundColor: 'beige',
+    //cursor: 'pointer',
+    marginTop: '10px',
+  };
+
+  const dropdownItemsStyle: React.CSSProperties = {
+    backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
+    color: isDarkMode ? colors.bone : colors.black,
+    width: '200px',
+    borderRadius: '0px',
+    paddingTop: '10px',
+    //fontSize: '10px',
   };
 
   const inputStyle: React.CSSProperties = {
@@ -105,7 +115,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   const darkModeLogoStyle: React.CSSProperties = {
     position: 'absolute',
     fontSize: '30px',
-    marginTop: '15px',
+    marginTop: '20px',
     cursor: 'pointer',
     marginLeft: '1000px',
     color: isDarkMode ? colors.bone : colors.beige,
@@ -124,8 +134,21 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
         <FontAwesomeIcon style={navLogoStyle} onMouseEnter={() => { setIsSidebarOpen(true); }} icon={faBars} />
         {isSidebarOpen ? <Sidebar /> : <br />}
         <div style={userStyle}>
-          <h2 style={userLogoPosition}><FontAwesomeIcon style={userLogoStyle} icon={faUser} /></h2>
-          <p style={nameStyle}> {username} </p>
+          <Dropdown label='' style={dropdownStyle} renderTrigger={() => <span><FontAwesomeIcon icon={faUser} style={userLogoStyle}/></span>}>
+            <Dropdown.Header style={dropdownItemsStyle}>
+              <span className="block text-sm">Hi, <b style={{color: isDarkMode ? colors.amethyst : colors.beige}}>{username?.toUpperCase()}</b></span>
+            </Dropdown.Header>
+            <Link to="/today">
+              <Dropdown.Item style={dropdownItemsStyle}>
+                <FontAwesomeIcon icon={faHome} />
+              </Dropdown.Item>
+            </Link>
+            <Link to="/login">
+              <Dropdown.Item style={dropdownItemsStyle}>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} /> Log out
+              </Dropdown.Item>
+            </Link>
+          </Dropdown>
         </div>
         {showSearchInput && (
           <TextField

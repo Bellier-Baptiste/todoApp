@@ -16,7 +16,6 @@ const ListPage = () => {
     const [searchValue] = useState('');
     const { isDarkMode } = useDarkMode();
 
-
     useEffect(() => {
         handleFilter();
     }, [searchValue]);
@@ -73,6 +72,16 @@ const ListPage = () => {
         backgroundColor: displayMode === mode ? isDarkMode ? colors.black : colors.coffee : 'transparent',
     });
 
+    const listStyle: React.CSSProperties = {
+        width: '80vw', 
+        justifyContent: 'space-between', 
+        display: displayMode, 
+        margin: 'auto',
+        grid: 'true',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(25px, 1fr))',
+        gap: '20px',
+    };
+
     const listItemStyle: React.CSSProperties = {
         color: isDarkMode ? colors.bluePurple : colors.ivory,
         backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
@@ -88,7 +97,7 @@ const ListPage = () => {
                 <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
             <div style={{height: '40px'}}/>
-            <div style={{ width: '80vw', justifyContent: 'space-between', display: displayMode, margin: 'auto'}}>
+            <div style={listStyle}>
                 {filteredTasks.map(task => (
                     <ListItem
                         key={task.id}
