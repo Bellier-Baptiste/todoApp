@@ -69,6 +69,11 @@ const Form = () => {
 
     const colors = Colors();
 
+    const divStyle: React.CSSProperties = {
+        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+        height: '100%', 
+      };
+
     const formStyle: React.CSSProperties = {
         backgroundColor: isDarkMode ? colors.darkGray : colors.lightCoffee,
         borderRadius: '30px',
@@ -106,7 +111,7 @@ const Form = () => {
     };
 
     return (
-        <div>
+        <div style={divStyle}>
             <form onSubmit={handleSubmit} style={formStyle}>
                 <h2> Add a new task </h2>
                 <div style={lineStyle} /><br />

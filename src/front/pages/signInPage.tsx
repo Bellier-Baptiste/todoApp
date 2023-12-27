@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
-import { users as initialUsers} from '../bdd/database';
+import { addUser, users as initialUsers} from '../bdd/database';
 import Colors from '../colors/colors';
+import { useUser } from '../contexts/userContext';
 
 const SignInPage: React.FC = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
   const [users, setUsers] = useState(initialUsers);
+  const { setUsername } = useUser();
+  const navigate = useNavigate();
 
-  const addUser = () => {
+  const addNewUser = () => {
     if (!users.some(user => user.name === name)) {
       const newUser = {
         id: users.length + 1,
@@ -18,8 +21,11 @@ const SignInPage: React.FC = () => {
         password: password,
       };
       setUsers(prevUsers => [...prevUsers, newUser]);
+      addUser(newUser);
+      setUsername(newUser.name);
+      navigate('/today');
     } else {
-      alert('Username already exists. Please choose a different username.');
+      setError('Username already exists. Please choose a different username.');
     }
   };
 
@@ -68,6 +74,7 @@ const SignInPage: React.FC = () => {
   return (
     <div style={divStyle}>
       <h1>Sign In</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form style={formStyle}>
       <TextField
         label="Name"
@@ -89,11 +96,9 @@ const SignInPage: React.FC = () => {
         InputProps={{style: propStyle}} 
         InputLabelProps={{style: labelStyle}}
       />
-      <Link to='/list'>
-        <Button variant="contained" onClick={addUser} style={buttonStyle}>
-            Sign in
-        </Button>
-      </Link>
+      <Button variant="contained" onClick={addNewUser} style={buttonStyle}>
+          Sign in
+      </Button>
     </form>
     <p>Already have an account ? <Link to="/login">Log in</Link></p>
     </div>
@@ -101,3 +106,4 @@ const SignInPage: React.FC = () => {
 };
 
 export default SignInPage;
+

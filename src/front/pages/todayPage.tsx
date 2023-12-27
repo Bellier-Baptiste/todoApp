@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Task, tasks as initialTasks } from '../bdd/database';
+import { Task, tasks as initialTasks, users } from '../bdd/database';
 import Ticket from '../components/content/ticket';
 import Navbar from '../components/navigation/navbar';
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
@@ -11,6 +11,7 @@ const TodayPage = () => {
     const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
     const { isDarkMode } = useDarkMode();
 
+    console.log(users);
 
     useEffect(() => {
         const today = new Date().toLocaleDateString();
@@ -84,7 +85,7 @@ const TodayPage = () => {
                                 key={task.id}
                                 taskName={task.title}
                                 assignedTo={task.assigned_to}
-                                deadline={task.due_date.toDateString()}
+                                deadline={task.due_date.toLocaleDateString()}
                                 id={task.id}
                             />
                             </div>

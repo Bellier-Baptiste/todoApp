@@ -35,6 +35,7 @@ const BoardPage = () => {
   const addButtonStyle: React.CSSProperties = {
     backgroundColor: isDarkMode ? isHovered ? colors.black : colors.darkSlateGray : isHovered ? colors.lightCoffee : colors.coffee,
     color: isDarkMode ? colors.amethyst : colors.black,
+    marginBottom: '10px',  
   };
 
   const titleStyle: React.CSSProperties = {

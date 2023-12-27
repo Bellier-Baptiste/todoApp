@@ -20,7 +20,6 @@ interface NavbarProps {
 
 const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, showSearchInput }) => {
   const { username, setUsername } = useUser();
-  console.log(username);
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const [searchValue, setSearchValueLocal] = useState('');
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
@@ -48,15 +47,10 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
     height: '12%',
     width: '100vw',
+    zIndex: 1000,
   };
 
   const userStyle: React.CSSProperties = {
-    grid: 'true',
-    //gridTemplate: 'repeat(2, 2fr)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
     position: 'absolute',
     marginTop: '13px',
     marginLeft: '90vw',
@@ -72,14 +66,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   };
 
   const dropdownStyle: React.CSSProperties = {
-    //fontSize: '20px',
-    //borderRadius: '50%',
-    //position: 'absolute',
-    //marginTop: '50px',
-    //marginLeft: '1110px',
     backgroundColor: 'beige',
-    //cursor: 'pointer',
-    //marginTop: '10px',
     color: 'blue',
   };
 
@@ -99,7 +86,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     fontSize: '20px',
     borderRadius: '5px',
     width: '25vw',
-    marginLeft: '450px',
+    marginLeft: '40%',
     marginTop: '13px',
   };
 
@@ -115,7 +102,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
     fontSize: '30px',
     marginTop: '20px',
     cursor: 'pointer',
-    marginLeft: '1000px',
+    marginLeft: '75%',
     color: isDarkMode ? colors.bone : colors.beige,
   };
 

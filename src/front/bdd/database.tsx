@@ -104,6 +104,10 @@ interface User {
     return [...tasks];
   };
 
+  export const addUser = (user: User) => {
+    users.push(user);
+  };
+
 
   
   // Utilisation des fonctions

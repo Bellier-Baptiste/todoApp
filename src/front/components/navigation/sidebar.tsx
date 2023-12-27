@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Tab from "./tab";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import { useSidebar } from "../../contexts/sidebarContext";
 const Sidebar: FunctionComponent = () => {
     const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
     const { isDarkMode } = useDarkMode();
+    const [isHovered, setIsHovered] = useState<boolean>(false);
 
     const colors = Colors();
 
@@ -25,12 +26,14 @@ const Sidebar: FunctionComponent = () => {
         width: '40%',
         fontSize: '15px',
         color: isDarkMode ? colors.amethyst : colors.coffee,
-        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+        backgroundColor: isHovered ? isDarkMode ? colors.darkCharcoal : colors.bone
+                                    : isDarkMode ? colors.darkGray  : colors.beige,
     };
 
     const tabStyle: React.CSSProperties = {
         color: isDarkMode ? colors.amethyst : colors.coffee,
-        backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+        backgroundColor: isHovered ? isDarkMode ? colors.darkGray : colors.beige
+                                    : isDarkMode ? colors.darkCharcoal  : colors.bone,
     };
 
     return ( 
@@ -47,7 +50,7 @@ const Sidebar: FunctionComponent = () => {
             </div>          
             <span className="sidebar-body">
                 <Link to="/list" className="link-style">
-                    <Tab label="List" style={tabStyle}/>
+                    <Tab label="List" style={tabStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}/>
                 </Link>
                 <Link to="/board" className="link-style">
                     <Tab label="Board" style={tabStyle}/>

@@ -51,7 +51,8 @@ const ListPage = () => {
     const addButtonStyle: React.CSSProperties = {
         backgroundColor: isDarkMode ? isHovered ? colors.darkGray : colors.darkSlateGray 
                         : isHovered ? colors.lightCoffee : colors.coffee ,
-        color: isDarkMode ? colors.amethyst : colors.black,   
+        color: isDarkMode ? colors.amethyst : colors.black, 
+        marginBottom: '10px',  
     };
 
     const spanStyle: React.CSSProperties = {
@@ -81,7 +82,7 @@ const ListPage = () => {
         display: displayMode, 
         margin: 'auto',
         grid: 'true',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
     };
 
     const listItemStyle: React.CSSProperties = {
@@ -99,7 +100,7 @@ const ListPage = () => {
             <span style={spanStyle}>
                 <h2> Display mode :</h2>
                 <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('')} icon={faList} />
-                <FontAwesomeIcon onClick={() => {setDisplayMode('grid')}} style={iconsStyle('flex')} icon={faGrip} />
+                <FontAwesomeIcon onClick={() => {setDisplayMode('grid')}} style={iconsStyle('grid')} icon={faGrip} />
             </span>
             <div style={listStyle}>
                 {filteredTasks.map(task => (
@@ -107,7 +108,7 @@ const ListPage = () => {
                         key={task.id}
                         taskName={task.title}
                         assignedTo={task.assigned_to}
-                        deadline={task.due_date?.toDateString() ?? new Date().toDateString()}
+                        deadline={task.due_date?.toLocaleDateString() ?? new Date().toLocaleDateString()}
                         creator={task.created_by ?? 'Anonymous'}
                         state={task.state ?? 'Incomplete'}
                         id={task.id}
