@@ -76,12 +76,12 @@ const ListPage = () => {
 
     const listStyle: React.CSSProperties = {
         width: '80vw', 
-        justifyContent: 'space-between', 
+        marginTop: '5%',
+        
         display: displayMode, 
         margin: 'auto',
         grid: 'true',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(25px, 1fr))',
-        gap: '20px',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
     };
 
     const listItemStyle: React.CSSProperties = {
@@ -99,9 +99,8 @@ const ListPage = () => {
             <span style={spanStyle}>
                 <h2> Display mode :</h2>
                 <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('')} icon={faList} />
-                <FontAwesomeIcon onClick={() => {setDisplayMode('flex')}} style={iconsStyle('flex')} icon={faGrip} />
+                <FontAwesomeIcon onClick={() => {setDisplayMode('grid')}} style={iconsStyle('flex')} icon={faGrip} />
             </span>
-            <div style={{height: '40px'}}/>
             <div style={listStyle}>
                 {filteredTasks.map(task => (
                     <ListItem
