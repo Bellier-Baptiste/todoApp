@@ -6,6 +6,8 @@ import { useDarkMode } from '../contexts/darkModeContext';
 import Colors from '../colors/colors';
 import { tasks } from '../bdd/database';
 import ListItem from '../components/content/listItem';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 type ValuePiece = Date | null;
 
@@ -16,6 +18,7 @@ const CalendarPage = () => {
   let selectedDayTasks = tasks;
 
   const [selectedDay, setSelectedDay] = useState(new Date());
+  const [ isHovered, setIsHovered ] = useState<boolean>(false);
 
   const colors = Colors();
 
@@ -30,12 +33,19 @@ const CalendarPage = () => {
       margin: 'auto',
   };
 
+  const addButtonStyle: React.CSSProperties = {
+    backgroundColor: isDarkMode ? isHovered ? colors.black : colors.darkSlateGray : isHovered ? colors.lightCoffee : colors.coffee,
+    color: isDarkMode ? colors.amethyst : colors.black,
+    marginBottom: '10px',  
+  };
+
   return (
       <div style={{ width: '100%', height: '100%' }}>
           <Navbar showSearchInput={false} />
           <br />
           <div style={divStyle}>
               <h2>Select a date</h2>
+              <div style={{backgroundColor: colors.amethyst}}>
               <Calendar
                   className='calendar custom-calendar'
                   onChange={handleDayClick}
@@ -44,7 +54,7 @@ const CalendarPage = () => {
                   selectRange={false}
                   nextLabel=">"
                   prevLabel="<"
-                  next2Label=">>" // Nouvelle propriété pour le bouton suivant
+                  next2Label=">>"
                   prev2Label="<<"
                   tileClassName="custom-day"
                   tileContent={({ date, view }) => (
@@ -55,7 +65,7 @@ const CalendarPage = () => {
                     )
                     : null
                   )}
-              />
+              /></div>
               {getTasksCountForDay(selectedDay) == 0 ?
                 <h2>{formatDate(selectedDay)} : No task</h2>
                 : getTasksCountForDay(selectedDay) == 1 ?
@@ -72,6 +82,12 @@ const CalendarPage = () => {
                   id={task.id}
                 />
               ))}
+              <Link to="/newTask">
+                <Button style={addButtonStyle} onMouseEnter={() => setIsHovered(true)} 
+                        onMouseLeave={() => setIsHovered(false)}>
+                  Add
+                </Button>
+              </Link> 
           </div>
       </div>
   );

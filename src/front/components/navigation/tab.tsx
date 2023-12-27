@@ -3,6 +3,8 @@ import {FunctionComponent} from 'react';
 type Props = {
     label: string;
     style?: React.CSSProperties;
+    onMouseEnter?: (event: MouseEvent) => void;
+    onMouseLeave?: (event: MouseEvent) => void;
 };
 
 const Tab: FunctionComponent<Props> = (props: Props) => {

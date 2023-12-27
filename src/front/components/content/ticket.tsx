@@ -44,8 +44,8 @@ const Ticket: React.FC<TicketProps> = ({ taskName, assignedTo, deadline, id }) =
         <Link to={`/task/${id}`}>
             <button style={buttonStyle}>
                 <h3>{taskName}</h3>
-                <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px'}}/>Assigned to : {assignedTo}</p>
-                <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px'}}/>Due date : {deadline}</p>
+                <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/>Assigned to : {assignedTo}</p>
+                <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/>Due date : {deadline}</p>
             </button>
         </Link>
     </div>
