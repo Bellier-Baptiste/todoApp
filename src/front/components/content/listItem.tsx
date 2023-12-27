@@ -54,10 +54,10 @@ const ListItem: React.FC<ListItemProps> = ({ taskName, assignedTo, deadline, cre
             <button style={buttonStyle} >
                 <h3>{taskName}</h3>
                     <span style={gridStyle}>
-                        <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px'}}/><b>Assigned to </b></p>
-                        <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px'}}/><b>Due date</b></p>
-                        <p><FontAwesomeIcon icon={faPenToSquare} style={{marginRight: '5px'}}/><b>Created by</b></p>
-                        <p><FontAwesomeIcon icon={faListAlt} style={{marginRight: '5px'}}/><b>State</b></p>
+                        <p><FontAwesomeIcon icon={faUser} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/><b>Assigned to </b></p>
+                        <p><FontAwesomeIcon icon={faCalendar} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/><b>Due date</b></p>
+                        <p><FontAwesomeIcon icon={faPenToSquare} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/><b>Created by</b></p>
+                        <p><FontAwesomeIcon icon={faListAlt} style={{marginRight: '5px', color: isDarkMode ? colors.amethyst : colors.beige}}/><b>State</b></p>
                         <p>{assignedTo}</p><p>{deadline}</p><p>{creator}</p><p>{state}</p>
                     </span>
             </button>
