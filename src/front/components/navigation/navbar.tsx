@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useUser } from '../../contexts/userContext';
 import { faMoon, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
-  onSearch?: () => void;
+  onSearch?: (value: string) => void;
   showSearchInput: boolean;
 }
 
@@ -25,16 +25,13 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   const [searchValue, setSearchValueLocal] = useState('');
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
 
-  useEffect(() => {
-    console.log('Username:', username);
-    if (username === undefined) {
-      setUsername('Guest');
-    }
-  }, [username]);
+  if (username === undefined) {
+    setUsername('Guest');
+  }
   
   const handleSearch = () => {
     setSearchValue && setSearchValue(searchValue);
-    onSearch && onSearch();
+    onSearch && onSearch(searchValue);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -75,14 +72,15 @@ const Navbar: FunctionComponent<NavbarProps> = ({ setSearchValue, onSearch, show
   };
 
   const dropdownStyle: React.CSSProperties = {
-    fontSize: '20px',
-    borderRadius: '50%',
+    //fontSize: '20px',
+    //borderRadius: '50%',
     //position: 'absolute',
     //marginTop: '50px',
     //marginLeft: '1110px',
     backgroundColor: 'beige',
     //cursor: 'pointer',
-    marginTop: '10px',
+    //marginTop: '10px',
+    color: 'blue',
   };
 
   const dropdownItemsStyle: React.CSSProperties = {

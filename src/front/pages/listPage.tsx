@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/navigation/navbar";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { tasks } from "../bdd/database";
 import ListItem from "../components/content/listItem";
 import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ const ListPage = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [displayMode, setDisplayMode] = useState('');
     const [filteredTasks, setFilteredTasks] = useState(tasks);
-    const [searchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const { isDarkMode } = useDarkMode();
 
     useEffect(() => {
@@ -29,10 +29,12 @@ const ListPage = () => {
         const filtered = tasks.filter((task) => {
             return (
                 (task.title && task.title.toLowerCase().includes(lowerCaseSearch)) ||
-                (task.assigned_to && task.assigned_to.toLowerCase().includes(lowerCaseSearch))
+                (task.assigned_to && task.assigned_to.toLowerCase().includes(lowerCaseSearch)) || 
+                (task.created_by && task.created_by.toLowerCase().includes(lowerCaseSearch)) ||
+                (task.state && task.state.toLowerCase().includes(lowerCaseSearch))
             );
         });
-        setFilteredTasks(() => filtered);
+        setFilteredTasks(filtered);
         console.log(filtered);
     };
     
@@ -89,7 +91,10 @@ const ListPage = () => {
 
     return (
         <div style={divStyle}>
-            <Navbar showSearchInput={true} onSearch={handleFilter}/>
+            <Navbar 
+                showSearchInput={true} 
+                onSearch={(value: SetStateAction<string>) => setSearchValue(value)}
+            />
             <div style={{height: '100px'}}/>
             <span style={spanStyle}>
                 <h2> Display mode :</h2>

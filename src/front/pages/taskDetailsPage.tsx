@@ -100,8 +100,7 @@ const TaskDetailsPage = () => {
 
   const pencilIconStyle: React.CSSProperties = {
     position: 'relative', 
-    bottom: '20px',
-    left: '230px',
+    marginLeft: '95%',
     fontSize: '20px',
     cursor: 'pointer',
     color: isDarkMode ? colors.amethyst : colors.bone,
