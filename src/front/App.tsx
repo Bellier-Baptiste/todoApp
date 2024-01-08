@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import 'react-calendar/dist/Calendar.css';
 import './App.css';
 import ListPage from './pages/listPage';
 import BoardPage from './pages/boardPage';
