@@ -33,6 +33,10 @@ const CalendarPage = () => {
       margin: 'auto',
   };
 
+  const dayColor: React.CSSProperties = {
+        color: isDarkMode ? colors.amethyst : colors.beige,
+    };
+
   const addButtonStyle: React.CSSProperties = {
     backgroundColor: isDarkMode ? isHovered ? colors.black : colors.darkSlateGray : isHovered ? colors.lightCoffee : colors.coffee,
     color: isDarkMode ? colors.amethyst : colors.black,
@@ -45,12 +49,13 @@ const CalendarPage = () => {
           <br />
           <div style={divStyle}>
               <h2>Select a date</h2>
-              <div style={{backgroundColor: colors.amethyst}}>
+              <div style={dayColor}>
               <Calendar
-                  className='calendar custom-calendar'
+                  className={`calendar custom-calendar ${isDarkMode ? 'dark-calendar' : ''}`}
                   onChange={handleDayClick}
                   value={selectedDay}
                   calendarType="US"
+                  locale="en-US"
                   selectRange={false}
                   nextLabel=">"
                   prevLabel="<"

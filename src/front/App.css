@@ -124,28 +124,58 @@
 
 /* Calendar CSS */
 
+.custom-calendar .react-calendar {
+  border-radius: 10px;
+}
+.custom-calendar .custom-day {
+  color: black;
+}
+.custom-calendar.dark-calendar .custom-day {
+  color: white;
+}
+.custom-calendar .custom-day:hover {
+  color: white;
+  background-color: black;
+}
+.custom-calendar.dark-calendar .custom-day:hover {
+  color: black;
+  background-color: white;
+}
+.custom-calendar-container {
+  border-radius: 10px;
+}
 .calendar {
   width: 100%;
   font-size: 20px;
-  background-color: blue;
+  border-radius: 10px;
+  background-color: rgb(187, 171, 140);
+}
+.calendar.dark-calendar {
+  width: 100%;
+  font-size: 20px;
+  background-color: rgb(30, 30, 30);
 }
 .react_calendar {
   width: 50rem;
+  border-radius: 10px;
+  color : black;
 }
-.react-calendar__navigation {
-  background-color: rgb(115 113 118);
-  //background-color: var(--isDarkMode) ? var(--amethystColor) : black;
-  font-size: 17px;  
+
+button {
+  border-radius: 0;
 }
-.custom-day {
+.react-calendar__navigation button {
+  background-color: rgb(253 247 228);
   color: black;
+  font-size: 17px;
+}
+.dark-calendar .react-calendar__navigation button {
+  background-color: rgb(115 113 118);
+  color: white;
 }
 .next2ClassName, .prev2ClassName {
   color: blue;
   background-color: black;
-}
-.react-calendar {
-  background-color: blue;
 }
 .tasks-count-badge {
   margin-left: 9px;
