@@ -2,13 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.tsx';
 import './index.css';
-import { UserProvider } from './userContext.tsx';
+import { UserProvider } from './contexts/userContext.tsx';
+import { DarkModeProvider } from './contexts/darkModeContext.tsx';
+import { SidebarProvider } from './contexts/sidebarContext.tsx';
+import { DatabaseProvider } from './contexts/databaseContext.tsx';
 
-// Utilisez ReactDOM.render pour le rendu synchrone
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <DarkModeProvider>
+        <SidebarProvider>
+          <DatabaseProvider>
+            <App />
+          </DatabaseProvider>
+        </SidebarProvider>
+      </DarkModeProvider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  --isDarkMode: ${useDarkMode() ? '1' : '0'}; /* Convertir le booléen en 1 ou 0 */
+  --amethystColor: ${colors.amethyst};
+  --darkCharcoalColor: ${colors.darkCharcoal};
 }
 
 .logo {
@@ -119,14 +122,42 @@
   margin-top: 20px;
 }
 
-/* Celendar CSS */
+/* Calendar CSS */
 
+.calendar {
+  width: 100%;
+  font-size: 20px;
+  background-color: blue;
+}
+.react_calendar {
+  width: 50rem;
+}
+.react-calendar__navigation {
+  background-color: rgb(115 113 118);
+  //background-color: var(--isDarkMode) ? var(--amethystColor) : black;
+  font-size: 17px;  
+}
 .custom-day {
   color: black;
 }
+.next2ClassName, .prev2ClassName {
+  color: blue;
+  background-color: black;
+}
+.react-calendar {
+  background-color: blue;
+}
 .tasks-count-badge {
+  margin-left: 9px;
+  margin-top: -25px;
+  transform: translate(-50%, 50%);
+}
+.pastille {
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
   color: black;
-  border-radius: 50px;
+  background-color: rgba(252, 151, 141, 1);
   font-size: 8px;
-  display: flex;
+  line-height: 15px;
 }

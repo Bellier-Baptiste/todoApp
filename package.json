@@ -17,13 +17,18 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.14.19",
+    "flowbite-react": "^0.7.2",
+    "modx-react": "^1.0.3",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-calendar": "^4.6.1",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-router-dom": "^6.19.0",
     "tw-daterange": "^1.1.25"
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

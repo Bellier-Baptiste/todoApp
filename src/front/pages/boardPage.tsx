@@ -4,8 +4,9 @@ import { tasks as initialTasks} from '../bdd/database';
 import Navbar from '../components/navigation/navbar';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { UserProvider } from '../userContext';
 import { Button } from '@mui/material';
+import Colors from '../colors/colors';
+import { useDarkMode } from '../contexts/darkModeContext';
 
 const BoardPage = () => {
 
@@ -16,6 +17,7 @@ const BoardPage = () => {
   
 
   const [isHovered, setIsHovered] = useState(false);
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     setTasksTodo(tasks.filter(task => task.state === 'Incomplete'));
@@ -23,19 +25,29 @@ const BoardPage = () => {
     setTasksCompleted(tasks.filter(task => task.state === 'Complete'));
   }, [tasks]);
 
+  const colors = Colors();
+
+  const divStyle: React.CSSProperties = {
+    width: '100vw',
+    backgroundColor: isDarkMode ? colors.darkCharcoal : colors.beige,
+  };
+
   const addButtonStyle: React.CSSProperties = {
-    backgroundColor: isHovered ? 'rgba(186, 183, 183, 0.7)' : 'rgba(186, 183, 183, 0.4)',
-    color: 'black',
-};
+    backgroundColor: isDarkMode ? isHovered ? colors.black : colors.darkSlateGray : isHovered ? colors.lightCoffee : colors.coffee,
+    color: isDarkMode ? colors.amethyst : colors.black,
+    marginBottom: '10px',  
+  };
+
+  const titleStyle: React.CSSProperties = {
+    color: isDarkMode ? colors.amethyst : colors.coffee,
+  };
 
   return (
-    <div style={{width: '100vw'}}>
-      <UserProvider>
-        <Navbar />
-      </UserProvider>
-      <h1>Board Page</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Section label="Todo" size="30%" bColor="rgba(251, 173, 173, 1)">
+    <div style={divStyle}>
+      <Navbar showSearchInput={false} />
+      <h1 style={titleStyle}>Board Page</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '90vw', margin: 'auto', marginBottom: '10px' }}>
+        <Section label="Todo" size="30%" bColor={isDarkMode ? colors.darkRed : colors.creamRed}>
           {tasksTodo.map(task => (
             <Ticket
               key={task.id}
@@ -46,7 +58,7 @@ const BoardPage = () => {
             />
           ))}
         </Section>
-        <Section label="Open" size="30%" bColor="rgba(251, 218, 173, 1)">
+        <Section label="Open" size="30%" bColor={isDarkMode ? colors.darkOrange : colors.lightOrange}>
           {tasksInProgress.map(task => (
             <Ticket
               key={task.id}
@@ -57,7 +69,7 @@ const BoardPage = () => {
             />
           ))}
         </Section>
-        <Section label="Closed" size="30%" bColor="rgba(196, 251, 173, 1)">
+        <Section label="Closed" size="30%" bColor={isDarkMode ? colors.darkGreen : colors.lightGreen}>
           {tasksCompleted.map(task => (
             <Ticket
               key={task.id}

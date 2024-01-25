@@ -7,20 +7,24 @@ import NewTaskPage from './pages/newTaskPage';
 import LoginPage from './pages/loginPage';
 import TaskDetailsPage from './pages/taskDetailsPage';
 import SignInPage from './pages/signInPage';
-import { UserProvider } from './userContext';
+import { UserProvider } from './contexts/userContext';
+import TodayPage from './pages/todayPage';
+import ImportExportPage from './pages/importExportPage';
 
 function App() {
   return (
     <UserProvider>
       <Router>
         <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signin" element={<SignInPage />} />
           <Route path="/list" element={<ListPage />}/>
           <Route path="/board" element={<BoardPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/newTask" element={<NewTaskPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signin" element={<SignInPage />} />
           <Route path="/task/:id" element={<TaskDetailsPage />} />
+          <Route path="/today" element={<TodayPage />} />
+          <Route path="/data" element={<ImportExportPage />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Router>
