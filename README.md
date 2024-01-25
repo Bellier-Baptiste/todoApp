@@ -6,7 +6,7 @@ Bienvenue dans notre application ToDo ! Cette application simple mais efficace v
 
 ### Fonctionnalités :
 
-1. **Gestion des tâches** : Créez, éditez et supprimez des tâches facilement. Marquez les tâches comme terminées une fois qu'elles sont faites pour maintenir votre liste propre.
+1. **Gestion des tâches** : Créez, éditez des tâches facilement. Marquez les tâches comme terminées une fois qu'elles sont faites pour maintenir votre liste propre.
 
 2. **Catégories** : Organisez vos tâches en catégories pour une meilleure organisation et clarté. Filtrez facilement les tâches par catégorie pour vous concentrer sur des domaines spécifiques.
 
@@ -93,6 +93,16 @@ yarn run dev
 
 5. Ouvrez votre navigateur et accédez à `http://localhost:3000` pour accéder à l'application ToDo.
 
+### Améliorations possibles : 
+
+1. **Gestion de la suppresion** : Lors du lancement de ce projet l'accent n'a pas été mis sur la possibilité de supprimer une tâche, bien que la fonctionnalité ne soit pas complexe à réaliser elle n'est pas présente dans l'application.
+
+2. **Ajout de l'import** : La fonctionnalité n'a pu être correctement réalisée malheureusement mais ce serait utile de l'ajouter.
+
+3. **Sécurité** : Mise en place d'une sécurité concernant les mots de passe.
+
+4. **Utilisation d'une BDD** : L'utilisation d'une BDD externe pourrait être très intéressante rendant l'application moins lourde, permettant la persistance des données, ajoutant une certaine sécurité et pouvant gérer un accès multi-utilisateurs.
+ 
 ### Contribuer :
 
 Les contributions à l'application ToDo sont les bienvenues ! Si vous avez des suggestions pour de nouvelles fonctionnalités, des améliorations ou des corrections de bogues, n'hésitez pas à ouvrir une issue ou à soumettre une pull request.
