@@ -22,7 +22,11 @@ Bienvenue dans notre application ToDo ! Cette application simple mais efficace v
 
 2. **Tableau de bord** : Sur cette page vous verrez vos tâches rangées dans des colonnes selon leur état : non démarré, en cours ou bien complété. Ici aussi il vous est possible d'ajouter une tâche de la même manière que sur la page Liste, et d'avoir accès aux détails d'une tâche particulière en cliquant dessus.
 
-3. **Calendrier** : Sur cette page vous verrez un calendrier comportant des pastilles indiquant le nombre de tâches pour chaque jour ayant au moins une tâche. (voir l'image pour plus de clarté) En appuyant sur un date vous avez donc la possibilité de visualiser les tâches du jour en question. Comme pour les autres page l'ajout d'une nouvelle tâche et la visualisation des détails d'une tâche sont possible. 
+3. **Calendrier** : Sur cette page vous verrez un calendrier comportant des pastilles indiquant le nombre de tâches pour chaque jour ayant au moins une tâche. (voir l'image pour plus de clarté)
+
+  ![alt text](https://github.com/Bellier-Baptiste/todoApp/blob/master/src/front/assets/calendar_screen.jpg?raw=true)
+  
+  En appuyant sur un date vous avez donc la possibilité de visualiser les tâches du jour en question. Comme pour les autres page l'ajout d'une nouvelle tâche et la visualisation des détails d'une tâche sont possibles. 
 
 
 ### Comment utiliser :
