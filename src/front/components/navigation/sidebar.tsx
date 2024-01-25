@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Tab from "./tab";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,6 @@ import { useSidebar } from "../../contexts/sidebarContext";
 const Sidebar: FunctionComponent = () => {
     const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
     const { isDarkMode } = useDarkMode();
-    const [isHovered, setIsHovered] = useState<boolean>(false);
 
     const colors = Colors();
 
@@ -25,15 +24,13 @@ const Sidebar: FunctionComponent = () => {
         height: '8%',
         width: '40%',
         fontSize: '15px',
-        color: isDarkMode ? colors.amethyst : colors.coffee,
-        backgroundColor: isHovered ? isDarkMode ? colors.darkCharcoal : colors.bone
-                                    : isDarkMode ? colors.darkGray  : colors.beige,
+        color: isDarkMode ? colors.amethyst : colors.beige,
+        backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
     };
 
     const tabStyle: React.CSSProperties = {
         color: isDarkMode ? colors.amethyst : colors.coffee,
-        backgroundColor: isHovered ? isDarkMode ? colors.darkGray : colors.beige
-                                    : isDarkMode ? colors.darkCharcoal  : colors.bone,
+        backgroundColor: isDarkMode ? colors.darkCharcoal  : colors.beige,
     };
 
     return ( 
@@ -45,18 +42,21 @@ const Sidebar: FunctionComponent = () => {
             </div>
             <div>            
                 <Link to='/today'>
-                    <button style={buttonStyle}> Today </button>
+                    <button style={buttonStyle} onClick={() => {setIsSidebarOpen(false)}}> Today </button>
                 </Link> 
             </div>          
             <span className="sidebar-body">
                 <Link to="/list" className="link-style">
-                    <Tab label="List" style={tabStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}/>
+                    <Tab label="List" style={tabStyle} onClick={() => {setIsSidebarOpen(false)}}/>
                 </Link>
                 <Link to="/board" className="link-style">
-                    <Tab label="Board" style={tabStyle}/>
+                    <Tab label="Board" style={tabStyle} onClick={() => {setIsSidebarOpen(false)}}/>
                 </Link>
                 <Link to="/calendar" className="link-style">
-                    <Tab label="Calendar" style={tabStyle}/>
+                    <Tab label="Calendar" style={tabStyle} onClick={() => {setIsSidebarOpen(false)}}/>
+                </Link>
+                <Link to="/data" className="link-style">
+                    <Tab label="Import/Export" style={tabStyle} onClick={() => {setIsSidebarOpen(false)}}/>
                 </Link>
             </span>
         </div> 

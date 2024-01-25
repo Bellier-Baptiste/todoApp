@@ -1,15 +1,18 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { tasks as initialTasks, updateTasks } from '../../bdd/database';
-import { Button, MenuItem, TextField } from '@mui/material';
+//import { tasks as initialTasks, updateTasks } from '../../bdd/database';
+import { Alert, Button, MenuItem, TextField } from '@mui/material';
 import { useUser } from '../../contexts/userContext';
 import Colors from '../../colors/colors';
 import { useDarkMode } from '../../contexts/darkModeContext';
+import { useDatabase } from '../../contexts/databaseContext';
 
 
 const Form = () => {
     const { isDarkMode } = useDarkMode();
-    const [tasks, setTasks] = useState(initialTasks);
+    const { tasks, updateTasks } = useDatabase();
+    //const [tasks, setTasks] = useState(initialTasks);
     const { username } = useUser();
+    const alertTimeout = 3000;
 
 
     const [description, setDescription] = useState('');
@@ -18,6 +21,7 @@ const Form = () => {
     const [title, setTitle] = useState('');
     const [assignedTo, setAssignedTo] = useState('');
     const [, setFormIsValid] = useState<boolean>(true);
+    const [ alert, setAlert ] = useState<React.ReactNode | null>(null);
 
     const titleRef = useRef<HTMLInputElement>(null);
     const assignedToRef = useRef<HTMLInputElement>(null);
@@ -44,22 +48,41 @@ const Form = () => {
         if (isValid) {
             const newTask = {
                 id: tasks.length + 1,
-                description: description,
-                state: state,
-                due_date: new Date(dueDate),
-                created_by: username ?? 'Anonymous',
                 title: title,
                 assigned_to: assignedTo,
+                due_date: new Date(dueDate),
+                state: state,
+                description: description,
                 category: 'Category1',
+                created_by: username ?? 'Anonymous',
             };
 
-            setTasks((prevTasks) => [...prevTasks, newTask]);
+            //setTasks((prevTasks) => [...prevTasks, newTask]);
             updateTasks(newTask);
+            setAlert(
+                <Alert severity="success" action={
+                    <Button color="inherit" size="small">
+                    UNDO
+                    </Button>
+                }> 
+                    Task added successfully!
+                </Alert>
+            );
+            setTimeout(() => {
+                setAlert(null);
+              }, alertTimeout);
             
             setTitle('');
             setAssignedTo('');
             setDueDate('');
             setDescription('');
+        } else {
+            setAlert(
+                <Alert onClose={() => {}} severity="error">Error when trying to add the task!</Alert>
+            );
+            setTimeout(() => {
+                setAlert(null);
+              }, alertTimeout);
         }
     };
 
@@ -109,6 +132,12 @@ const Form = () => {
         color: isDarkMode ? colors.amethyst : colors.black,
         backgroundColor: isDarkMode ? colors.darkSlateGray : colors.coffee,
     };
+
+    const alertStyle: React.CSSProperties = {
+        position: 'fixed',
+        bottom: '10px',
+        right: '10px',
+      };
 
     return (
         <div style={divStyle}>
@@ -191,6 +220,7 @@ const Form = () => {
                     Add
                 </Button>
             </form>
+            {alert && <div style={alertStyle}>{alert}</div>}
         </div>
     );
 };

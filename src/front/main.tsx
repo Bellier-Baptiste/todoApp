@@ -5,14 +5,16 @@ import './index.css';
 import { UserProvider } from './contexts/userContext.tsx';
 import { DarkModeProvider } from './contexts/darkModeContext.tsx';
 import { SidebarProvider } from './contexts/sidebarContext.tsx';
+import { DatabaseProvider } from './contexts/databaseContext.tsx';
 
-// Utilisez ReactDOM.render pour le rendu synchrone
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <DarkModeProvider>
         <SidebarProvider>
-          <App />
+          <DatabaseProvider>
+            <App />
+          </DatabaseProvider>
         </SidebarProvider>
       </DarkModeProvider>
     </UserProvider>

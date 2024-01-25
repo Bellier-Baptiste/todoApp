@@ -1,21 +1,23 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/navigation/navbar";
 import { SetStateAction, useEffect, useState } from "react";
-import { tasks } from "../bdd/database";
+//import { tasks } from "../bdd/database";
 import ListItem from "../components/content/listItem";
 import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import Colors from "../colors/colors";
 import { useDarkMode } from "../contexts/darkModeContext";
+import { useDatabase } from "../contexts/databaseContext";
 
 const ListPage = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [displayMode, setDisplayMode] = useState('');
-    const [filteredTasks, setFilteredTasks] = useState(tasks);
     const [searchValue, setSearchValue] = useState('');
     const { isDarkMode } = useDarkMode();
-
+    const { tasks } = useDatabase();
+    const [filteredTasks, setFilteredTasks] = useState(tasks);
+    
     useEffect(() => {
         handleFilter();
     }, [searchValue]);
@@ -35,7 +37,6 @@ const ListPage = () => {
             );
         });
         setFilteredTasks(filtered);
-        console.log(filtered);
     };
     
       
@@ -90,6 +91,10 @@ const ListPage = () => {
         backgroundColor: isDarkMode ? colors.darkGray : colors.coffee,
     };
 
+    const resultStyle: React.CSSProperties = {
+        color: isDarkMode ? colors.bone : colors.black,
+    };
+
     return (
         <div style={divStyle}>
             <Navbar 
@@ -102,6 +107,23 @@ const ListPage = () => {
                 <FontAwesomeIcon onClick={() => {setDisplayMode('')}} style={iconsStyle('')} icon={faList} />
                 <FontAwesomeIcon onClick={() => {setDisplayMode('grid')}} style={iconsStyle('grid')} icon={faGrip} />
             </span>
+            {filteredTasks.length == 0 ?
+                    <div>
+                        <h3 style={resultStyle}> No task found ! Please try another filter.</h3>
+                    </div>
+                    : filteredTasks.length == 1 ?
+                    <div>
+                        <h3 style={resultStyle}>
+                            {filteredTasks.length} task found
+                        </h3>
+                    </div>
+                    : 
+                    <div>
+                        <h3 style={resultStyle}>
+                            {filteredTasks.length} tasks found
+                        </h3>
+                    </div>
+                }
             <div style={listStyle}>
                 {filteredTasks.map(task => (
                     <ListItem
@@ -115,6 +137,7 @@ const ListPage = () => {
                         style={listItemStyle}
                     />
                 ))}
+                
             </div>
             <Link to="/newTask">
                 <Button style={addButtonStyle} onMouseEnter={() => setIsHovered(true)} 

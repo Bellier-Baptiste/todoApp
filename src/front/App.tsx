@@ -9,6 +9,7 @@ import TaskDetailsPage from './pages/taskDetailsPage';
 import SignInPage from './pages/signInPage';
 import { UserProvider } from './contexts/userContext';
 import TodayPage from './pages/todayPage';
+import ImportExportPage from './pages/importExportPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/newTask" element={<NewTaskPage />} />
           <Route path="/task/:id" element={<TaskDetailsPage />} />
           <Route path="/today" element={<TodayPage />} />
+          <Route path="/data" element={<ImportExportPage />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Router>

@@ -24,6 +24,7 @@ const TaskDetailsPage = () => {
   const { isDarkMode } = useDarkMode();
 
 
+
   useEffect(() => {
     if (id) {
       const taskFromList = tasks.find(task => task.id === parseInt(id, 10));
